@@ -13,11 +13,11 @@ const Page = () => {
 
                     <input type="password" placeholder="Введите пароль" className="relative mx-[15%] px-[15px] w-[70%] h-[50px] border-[2px] border-[#120154] rounded-[5px] placeholder:text-[#120154]"/>
 
-                    <button className="flex justify-center items-center mx-[15%] w-[70%] h-[50px] bg-[#42a5f5] rounded-[5px] text-[#e3f2fd] text-[1.25rem] font-bold">Продолжить</button>
+                    <button type="button" className="flex justify-center items-center mx-[15%] w-[70%] h-[50px] bg-[#42a5f5] rounded-[5px] text-[#e3f2fd] text-[1.25rem] font-bold">Продолжить</button>
 
                     <p className="text-[#120154] text-[1.25rem] font-bold">ИЛИ</p>
 
-                    <button className="flex justify-center items-center row-span-2 mx-[15%] w-[70%] h-[50px] border-[2px] border-[#120154] rounded-[5px] text-[#120154] text-[1.25rem] font-bold">Продолжить с Google</button>
+                    <button type="button" className="flex justify-center items-center row-span-2 mx-[15%] w-[70%] h-[50px] border-[2px] border-[#120154] rounded-[5px] text-[#120154] text-[1.25rem] font-bold">Продолжить с Google</button>
                 </div>
             </form>
         </main>
