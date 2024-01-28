@@ -1,7 +1,8 @@
 import React from 'react';
 
-import TheHeader from "@/widgets/shared/TheHeader";
-import TheCompanyChats from "@/widgets/features/TheCompanyChats";
+import TheHeader from "@/shared/TheHeader";
+
+import MessangerSidebar from "@/widgets/MessangerSidebar";
 
 const Page = () => {
     return (
@@ -9,7 +10,7 @@ const Page = () => {
             <TheHeader/>
 
             <main className='relative flex w-full h-[calc(100vh-45px)]'>
-                <TheCompanyChats/>
+                <MessangerSidebar/>
 
                 <div className="relative w-[81%] h-full bg-[#e3f2fd]">
 
