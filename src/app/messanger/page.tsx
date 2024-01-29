@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TheHeader from "@/shared/TheHeader";
+import TheHeader from "@/widgets/TheHeader";
 
 import MessangerSidebar from "@/widgets/MessangerSidebar";
 

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Kamerik';
+  src: url('./fonts/kamerik205-heavy.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'MerryWeather';
+  src: url('./fonts/merriweather-regular-italic.woff2') format('truetype');
+}
+
 * {
   margin: 0;
   padding: 0
