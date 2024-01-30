@@ -12,7 +12,7 @@ const Page = () => {
                 <Button variant="text">
                     <img src="/static/LeftArrowIcon.svg" alt=""/>
 
-                    <p className="ml-[15px]">I don't want to sign up</p>
+                    <p className="ml-[15px]">I don&lsquo;t want to sign up</p>
                 </Button>
             </Link>
 
