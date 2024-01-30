@@ -1,6 +1,9 @@
+"use client";
 import React from 'react';
 
 import Link from "next/link";
+
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -22,7 +25,7 @@ const Page = () => {
 
                     <p className="text-[#2076d2] text-[1.375rem] text-center font-medium">We recommend to use work e-mail</p>
 
-                    <Button variant="outlined" className="row-span-2 mx-[15%] w-[70%] h-[50px] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
+                    <Button variant="outlined" onClick={() => signIn('google')} className="row-span-2 mx-[15%] w-[70%] h-[50px] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
                         <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
                         <p className="ml-[15px]">Continue with Google</p>
