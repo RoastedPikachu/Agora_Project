@@ -31,8 +31,8 @@ const Page = () => {
                         <p className="ml-[15px]">Continue with Google</p>
                     </Button>
 
-                    <Button variant="contained" onClick={() => signIn('github')} className="row-span-2 mx-[15%] w-[70%] h-[50px] bg-[#000000] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
-                        <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                    <Button variant="contained" onClick={() => signIn('github')} className="row-span-2 mx-[15%] w-[70%] h-[50px] bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
+                        <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                         <p className="ml-[15px]">Continue with GitHub</p>
                     </Button>
