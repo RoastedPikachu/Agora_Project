@@ -20,7 +20,7 @@ const Page = () => {
             </Link>
             
             <form className="relative w-[40%] h-auto">
-                <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] w-full h-full">
+                <div className="relative grid justify-items-center grid-rows-[10] grid-cols-1 gap-y-[25px] w-full h-full">
                     <h2 className="text-[#2076d2] text-[2.375rem] text-center font-bold">Sign in to Agora</h2>
 
                     <p className="text-[#2076d2] text-[1.375rem] text-center font-medium">We recommend to use work e-mail</p>
@@ -29,6 +29,12 @@ const Page = () => {
                         <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
                         <p className="ml-[15px]">Continue with Google</p>
+                    </Button>
+
+                    <Button variant="contained" onClick={() => signIn('github')} className="row-span-2 mx-[15%] w-[70%] h-[50px] bg-[#000000] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
+                        <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+
+                        <p className="ml-[15px]">Continue with GitHub</p>
                     </Button>
 
                     <p className="text-[#2076d2] text-[1.25rem] font-bold">OR</p>
