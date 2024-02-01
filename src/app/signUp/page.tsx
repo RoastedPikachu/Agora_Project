@@ -33,7 +33,7 @@ const Page = () => {
 
                     <p className="text-[#2076f2] text-[1.25rem] font-bold">OR</p>
 
-                    <Button variant="outlined" onClick={() => signIn('google')} className="flex justify-center items-center row-span-2 mx-[15%] w-[70%] h-[50px] border-2 rounded-[5px] text-[1rem] font-bold">
+                    <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
                         <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
                         <p className="ml-[15px]">Continue with Google</p>
