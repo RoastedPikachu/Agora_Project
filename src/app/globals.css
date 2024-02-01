@@ -16,3 +16,15 @@
   margin: 0;
   padding: 0
 }
+
+.textMUIWhiteButton {
+  @apply text-[#ffffff] font-bold;
+}
+
+.containedMUIWhiteButton {
+  @apply bg-[#ffffff] hover:bg-[#f0f5ff] text-[#2076d2] hover:text-[#2076d2] font-bold;
+}
+
+.githubOAuthButton {
+  @apply row-span-2 mx-[15%] w-[70%] h-[50px] bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold;
+}
