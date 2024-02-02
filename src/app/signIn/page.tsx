@@ -1,7 +1,5 @@
 "use client";
-import React from 'react';
-
-import {useIsMobileCheck} from "../../../customHooks";
+import React, {useState} from 'react';
 
 import Link from "next/link";
 
@@ -10,8 +8,21 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
+import {useIsMobileCheck} from "../../../customHooks";
+
+import firebaseSignIn from "../../../firebase/auth/signIn";
+
 const Page = () => {
     const isMobile = useIsMobileCheck();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSignIn = async () => {
+        let result = await firebaseSignIn(email, password);
+
+        console.log(result);
+    }
 
     return (
         <main className="relative flex justify-center items-center w-full h-[100vh]">
@@ -43,11 +54,11 @@ const Page = () => {
 
                     <p className="text-[#2076d2] text-[1.25rem] font-bold">OR</p>
 
-                    <TextField label="Insert E-mail" className="authInputMUIField"/>
+                    <TextField type="text" label="Insert E-mail" onChange={(event) => setEmail(event.target.value)} className="authInputMUIField"/>
 
-                    <TextField label="Insert password" className="authInputMUIField"/>
+                    <TextField type="password" label="Insert password" onChange={(event) => setPassword(event.target.value)} className="authInputMUIField"/>
 
-                    <Button variant="contained" className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Sign in</Button>
+                    <Button variant="contained" onClick={() => handleSignIn()} className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Sign in</Button>
 
                     <Link href="/signUp">
                         <Button variant="text">Create an account</Button>

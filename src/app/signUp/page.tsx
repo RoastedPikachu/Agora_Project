@@ -1,7 +1,5 @@
 "use client";
-import React from 'react';
-
-import {useIsMobileCheck} from "../../../customHooks";
+import React, {useState} from 'react';
 
 import Link from "next/link";
 
@@ -10,8 +8,21 @@ import {signIn} from "next-auth/react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
+import {useIsMobileCheck} from "../../../customHooks";
+
+import firebaseSignUp from "../../../firebase/auth/signUp";
+
 const Page = () => {
     const isMobile = useIsMobileCheck();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSignUp = async () => {
+        let result = await firebaseSignUp(email, password);
+
+        console.log(result);
+    }
 
     return (
         <main className="relative flex justify-center items-center w-full h-[100vh]">
@@ -29,11 +40,11 @@ const Page = () => {
 
                     <p className="text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">We recommend to use work e-mail</p>
 
-                    <TextField label="Insert E-mail" className="relative mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] placeholder:text-[#120154]"/>
+                    <TextField type="text" label="Insert E-mail" onChange={(event) => setEmail(event.target.value)} className="relative mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] placeholder:text-[#120154]"/>
 
-                    <TextField label="Insert password" className="relative mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] placeholder:text-[#120154]"/>
+                    <TextField type="password" label="Insert password" onChange={(event) => setPassword(event.target.value)} className="relative mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] placeholder:text-[#120154]"/>
 
-                    <Button variant="contained" className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Continue</Button>
+                    <Button variant="contained" onClick={() => handleSignUp()} className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Continue</Button>
 
                     <p className="text-[#2076f2] text-[1.25rem] font-bold">OR</p>
 
