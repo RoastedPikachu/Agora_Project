@@ -22,7 +22,12 @@ const Page = () => {
                 </Button>
             </Link>
 
-            <AuthForm isSignIn={true} authHeader={"Sign in to Agora"} authDescription={"We recommend to use work e-mail"} otherChoiseText={"Create an account"}/>
+            <AuthForm
+                isSignIn={true}
+                authHeader={"Sign in to Agora"}
+                authDescription={"We recommend to use work e-mail"}
+                otherChoiseText={"Create an account"}
+            />
         </main>
     );
 };
