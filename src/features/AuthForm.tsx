@@ -1,6 +1,8 @@
 "use client";
 import React, {useState} from 'react';
 
+import {useRouter} from 'next/navigation';
+
 import Link from "next/link";
 
 import {signIn} from "next-auth/react";
@@ -19,6 +21,8 @@ interface AuthFormProps {
 }
 
 const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription, otherChoiseText}) => {
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -26,16 +30,20 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
         let result = await firebaseSignUp(email, password);
 
         console.log(result);
+
+        router.push("/signIn");
     }
 
     const handleSignIn = async () => {
         let result = await firebaseSignIn(email, password);
 
         console.log(result);
+
+        router.push("/messanger");
     }
 
     return (
-        <form className="relative w-[40%] mlarge:w-[90%] h-auto">
+        <form className="relative w-[40%] mlarge:w-[90%] max-w-[750px] h-auto">
             <div className="relative grid justify-items-center grid-rows-[10] grid-cols-1 gap-y-[25px] w-full h-full">
                 <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">{authHeader}</h2>
 
