@@ -36,3 +36,7 @@
 .githubOAuthButton {
   @apply row-span-1 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold;
 }
+
+.credentialsAuthMUIButton {
+  @apply flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold;
+}

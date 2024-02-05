@@ -66,10 +66,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
     }
 
     const checkDataValidity = () => {
-        setErrorEmailText(email.length ? "" : "Field is empty");
+        const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        setErrorEmailText(!email.length ? "Field is empty" :
+            email.match(emailRegEx) ? "" : "Incorrect email: expected ivanivanov@gmail.com");
         setErrorPasswordText(password.length ? "" : "Field is empty");
 
-        return email.length && password.length;
+        return email.match(emailRegEx) && email.length && password.length;
     }
 
     const clearFormData = () => {
@@ -103,7 +106,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                         <TextField type="password" label="Insert password" required={true} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
-                        <Button variant="contained" onClick={() => handleSignUp()} className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Continue</Button>
+                        <Button variant="contained" onClick={() => handleSignUp()} className="credentialsAuthMUIButton mt-[10px]">Continue</Button>
                     </>
                 }
 
@@ -112,11 +115,11 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                 {isSignIn ?
                     <>
-                        <TextField type="text" label="Insert E-mail" required={true} error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
+                        <TextField type="text" label="Insert E-mail" required error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
 
-                        <TextField type="password" label="Insert password" required={true} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
+                        <TextField type="password" label="Insert password" required error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
-                        <Button variant="contained" onClick={() => handleSignIn()} className="flex justify-center items-center mt-[10px] mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Sign in</Button>
+                        <Button variant="contained" onClick={() => handleSignIn()} className="credentialsAuthMUIButton mt-[10px]">Sign in</Button>
                     </>
                     :
                     <>
