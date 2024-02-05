@@ -1,13 +1,13 @@
 import React from 'react';
 
-import TheHeader from "@/widgets/TheHeader";
+import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
 
 import MessangerSidebar from "@/widgets/MessangerSidebar";
 
 const Page = () => {
     return (
         <>
-            <TheHeader/>
+            <TheMessangerPageHeader/>
 
             <main className='relative flex w-full h-[calc(100vh-45px)]'>
                 <MessangerSidebar/>

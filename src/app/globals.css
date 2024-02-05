@@ -26,13 +26,13 @@
 }
 
 .authInputMUIField {
-  @apply relative mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px];
+  @apply relative row-span-1 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px];
 }
 
 .googleOAuthButton {
-  @apply flex justify-center items-center row-span-2 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] text-[1rem] font-bold;
+  @apply flex justify-center items-center row-span-1 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] border-2 rounded-[5px] text-[1rem] font-bold;
 }
 
 .githubOAuthButton {
-  @apply row-span-2 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold;
+  @apply row-span-1 mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold;
 }

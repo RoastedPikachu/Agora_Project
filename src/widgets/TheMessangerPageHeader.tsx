@@ -1,8 +1,8 @@
 import React from 'react';
 
-const TheHeader = () => {
+const TheMessangerPageHeader = () => {
     return (
-        <header className="relative flex items-center pl-[15%] pr-[20px] w-full h-[45px] bg-[#42a5f5]">
+        <header className="relative flex items-center pl-[15%] pr-[50px] w-full h-[45px] bg-[#42a5f5]">
             <button className="flex justify-center items-center w-[35px] h-[35px]">
                 <img src="/static/messangerPage/icons/HistoryIcon.svg" alt="" className="w-[30px] h-[30px]"/>
             </button>
@@ -21,4 +21,4 @@ const TheHeader = () => {
     );
 };
 
-export default TheHeader;
+export default TheMessangerPageHeader;

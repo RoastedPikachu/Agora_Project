@@ -8,14 +8,15 @@ import Button from "@mui/material/Button";
 import {useIsMobileCheck} from "../../customHooks";
 
 interface GoBackButtonProps {
+    designation: string;
     buttonText: string;
 }
 
-const GoBackButton:React.FC<GoBackButtonProps> = ({buttonText}) => {
+const GoBackButton:React.FC<GoBackButtonProps> = ({designation, buttonText}) => {
     const isMobile = useIsMobileCheck();
 
     return (
-        <Link href="/" className="absolute top-[30px] mlarge:top-[20px] left-[30px] mlarge:left-[10px]">
+        <Link href={designation} className="absolute top-[30px] mlarge:top-[20px] left-[30px] mlarge:left-[10px]">
             <Button variant="text">
                 <img src="/static/LeftArrowIcon.svg" alt=""/>
 
