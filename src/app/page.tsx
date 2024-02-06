@@ -27,7 +27,7 @@ export default function Home() {
                   <Button variant="contained" className="w-full h-full bg-[#ffffff] text-[#2076d2] text-[1rem] hover:text-[#ffffff] font-bold">Sign up</Button>
               </Link>
 
-              <Button variant="outlined" onClick={() => signIn('google')} className="flex justify-center items-center row-span-2 w-[35%] h-full bg-[#ffffff] border-2 rounded-[5px] text-[1rem] font-bold">
+              <Button variant="outlined" onClick={() => signIn('google')} className="flex justify-center items-center row-span-2 w-[35%] h-full bg-[#ffffff] hover:bg-[#ffffff] border-2 rounded-[5px] text-[1rem] font-bold">
                   <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
                   <p className="ml-[15px]">Sign Up with Google</p>

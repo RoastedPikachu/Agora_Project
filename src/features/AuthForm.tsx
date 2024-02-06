@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 
 import {useRouter} from 'next/navigation';
 
@@ -17,34 +17,72 @@ interface AuthFormProps {
     isSignIn: boolean;
     authHeader: string;
     authDescription: string;
-    otherChoiseText: string;
+    otherChoiceText: string;
 }
 
-const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription, otherChoiseText}) => {
+const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription, otherChoiceText}) => {
     const router = useRouter();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [errorEmailText, setErrorEmailText] = useState("");
+    const [errorPasswordText, setErrorPasswordText] = useState("");
+
+    const handleEmailChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setErrorEmailText("");
+        setEmail(event.target.value);
+    }
+
+    const handlePasswordChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setErrorPasswordText("");
+        setPassword(event.target.value);
+    }
+
     const handleSignUp = async () => {
-        let result = await firebaseSignUp(email, password);
+        if(checkDataValidity()) {
+            let result = await firebaseSignUp(email, password);
 
-        console.log(result);
+            clearFormData();
 
-        router.push("/signIn");
+            router.push("/signIn");
+        }
     }
 
     const handleSignIn = async () => {
-        let result = await firebaseSignIn(email, password);
+        if(checkDataValidity()) {
+            let result = await firebaseSignIn(email, password);
 
-        console.log(result);
+            console.log(result);
 
-        router.push("/messanger");
+            //document.cookie = `token=${result.result.user.accessToken}; path=/; max-age=2592000; secure=true`;
+
+            //document.cookie = `token=${result.result.user.uid}; path=/; max-age=2592000; secure=true`;
+
+            clearFormData();
+
+            router.push("/messanger");
+        }
+    }
+
+    const checkDataValidity = () => {
+        const emailRegEx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        setErrorEmailText(!email.length ? "Field is empty" :
+            email.match(emailRegEx) ? "" : "Incorrect email: expected ivanivanov@gmail.com");
+        setErrorPasswordText(password.length ? "" : "Field is empty");
+
+        return email.match(emailRegEx) && email.length && password.length;
+    }
+
+    const clearFormData = () => {
+        setEmail("");
+        setPassword("");
     }
 
     return (
         <form className="relative w-[40%] mlarge:w-[90%] max-w-[750px] h-auto">
-            <div className="relative grid justify-items-center grid-rows-[10] grid-cols-1 gap-y-[25px] w-full h-full">
+            <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] w-full h-full max-h-[650px]">
                 <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">{authHeader}</h2>
 
                 <p className="text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">{authDescription}</p>
@@ -64,11 +102,11 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         </Button>
                     </> :
                     <>
-                        <TextField type="text" label="Insert E-mail" onChange={(event) => setEmail(event.target.value)} className="authInputMUIField"/>
+                        <TextField type="text" label="Insert E-mail" required={true} error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
 
-                        <TextField type="password" label="Insert password" onChange={(event) => setPassword(event.target.value)} className="authInputMUIField"/>
+                        <TextField type="password" label="Insert password" required={true} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
-                        <Button variant="contained" onClick={() => handleSignUp()} className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Continue</Button>
+                        <Button variant="contained" onClick={() => handleSignUp()} className="credentialsAuthMUIButton mt-[10px]">Continue</Button>
                     </>
                 }
 
@@ -77,11 +115,11 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                 {isSignIn ?
                     <>
-                        <TextField type="text" label="Insert E-mail" onChange={(event) => setEmail(event.target.value)} className="authInputMUIField"/>
+                        <TextField type="text" label="Insert E-mail" required error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
 
-                        <TextField type="password" label="Insert password" onChange={(event) => setPassword(event.target.value)} className="authInputMUIField"/>
+                        <TextField type="password" label="Insert password" required error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
-                        <Button variant="contained" onClick={() => handleSignIn()} className="flex justify-center items-center mx-[15%] mlarge:mx-[5%] w-[70%] mlarge:w-[80%] h-[50px] bg-[#2076d2] rounded-[5px] text-[1.25rem] font-bold">Sign in</Button>
+                        <Button variant="contained" onClick={() => handleSignIn()} className="credentialsAuthMUIButton mt-[10px]">Sign in</Button>
                     </>
                     :
                     <>
@@ -100,7 +138,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                 }
 
                 <Link href={isSignIn ? '/signUp' : '/signIn'}>
-                    <Button variant="text">{otherChoiseText}</Button>
+                    <Button variant="text">{otherChoiceText}</Button>
                 </Link>
             </div>
         </form>
