@@ -17,7 +17,7 @@ const GoBackButton:React.FC<GoBackButtonProps> = ({buttonText}) => {
     return (
         <Link href="/" className="absolute top-[30px] mlarge:top-[20px] left-[30px] mlarge:left-[10px]">
             <Button variant="text">
-                <img src="/static/LeftArrowIcon.svg" alt=""/>
+                <img src="/static/LeftArrowIcon.svg" alt="Button: jump to main page"/>
 
                 {!isMobile && <p className="ml-[15px]">{buttonText}</p>}
             </Button>

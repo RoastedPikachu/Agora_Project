@@ -52,13 +52,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                 {isSignIn ?
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                            <img src="/static/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
@@ -86,13 +86,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     :
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                            <img src="/static/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
