@@ -82,7 +82,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
     return (
         <form className="relative w-[40%] mlarge:w-[90%] max-w-[750px] h-auto">
-            <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] w-full h-full max-h-[650px]">
+            <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] mt-[30px] w-full h-full max-h-[650px]">
                 <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">{authHeader}</h2>
 
                 <p className="text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">{authDescription}</p>
@@ -90,13 +90,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                 {isSignIn ?
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
+                            <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
@@ -124,13 +124,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     :
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
+                            <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
