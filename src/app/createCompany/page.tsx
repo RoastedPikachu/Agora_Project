@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 import GoBackButton from "@/shared/GoBackButton";
+import Link from "next/link";
 
 const Page = () => {
     const [companyAvatar, setCompanyAvatar] = useState("");
@@ -14,10 +15,10 @@ const Page = () => {
     }
 
     return (
-        <main className="relative flex justify-center items-center w-full h-[100vh]">
+        <main className="relative flex flex-col justify-center items-center w-full h-[100vh]">
             <GoBackButton designation={"/signUp"} buttonText={"I don't want to create company"}/>
 
-            <form className="grid justify-items-center grid-rows-5 gap-y-[25px] w-[40%] max-w-[750px] h-auto">
+            <form className="grid justify-items-center grid-rows-[5] gap-y-[25px] w-[40%] max-w-[750px] h-auto">
                 <div className="relative flex items-center row-span-3 w-[calc(70%+40px)] h-auto">
                     <div className="relative flex w-[260px]">
                         <div className="relative px-[20px] w-full h-auto">
@@ -46,6 +47,10 @@ const Page = () => {
 
                 <Button variant="contained" className="credentialsAuthMUIButton mt-[-5px]">Complete sign up</Button>
             </form>
+
+            <Link href="/joinTheCompany" className="mt-[25px]">
+                <Button variant="text">Join the company instead</Button>
+            </Link>
         </main>
     );
 };
