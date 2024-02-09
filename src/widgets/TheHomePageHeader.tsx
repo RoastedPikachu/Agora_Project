@@ -7,10 +7,10 @@ import Button from "@mui/material/Button";
 const TheHomePageHeader = () => {
     return (
         <header className="relative flex justify-between items-center pl-[10%] pr-[50px] w-full h-[50px] bg-[#2076d2]">
-           <div className="flex items-center w-[15%]">
-               <img src="/static/AgoraLogo.svg" alt="" className="w-[25px] h-[25px]"/>
+           <div className="flex items-center w-[15%] h-[25px]">
+               <img src="/static/header/logo/AgoraLogo.svg" alt="" className="w-[25px] h-[25px]"/>
 
-               <h2 className="ml-[15px] text-[#ffffff] text-[1.5rem] font-['Kamerik'] font-bold">Agora</h2>
+               <h2 className="ml-[15px] h-[27.5px] text-[#ffffff] text-[1.5rem] font-['Kamerik'] font-bold">Agora</h2>
            </div>
 
            <nav className="flex justify-between items-center w-[15%]">

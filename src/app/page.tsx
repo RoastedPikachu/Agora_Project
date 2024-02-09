@@ -24,17 +24,17 @@ export default function Home() {
 
           <div className="relative flex justify-between items-center mt-[30px] w-[70%] h-[50px]">
               <Link href="/signUp" className="w-[26%] h-full">
-                  <Button variant="contained" className="w-full h-full bg-[#ffffff] text-[#2076d2] text-[1rem] hover:text-[#ffffff] font-bold">Sign up</Button>
+                  <Button variant="contained" className="w-full h-full bg-[#ffffff] hover:bg-[#ffffff] text-[#2076d2] text-[1rem] hover:text-[#2076d2] font-bold">Sign up</Button>
               </Link>
 
               <Button variant="outlined" onClick={() => signIn('google')} className="flex justify-center items-center row-span-2 w-[35%] h-full bg-[#ffffff] hover:bg-[#ffffff] border-2 rounded-[5px] text-[1rem] font-bold">
-                  <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                  <img src="/static/icon/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
                   <p className="ml-[15px]">Sign Up with Google</p>
               </Button>
 
               <Button variant="contained" onClick={() => signIn('github')} className="row-span-2 w-[35%] h-full bg-[#000000] hover:bg-[#111111] border-2 hover:border-[2px] rounded-[5px] text-[1rem] font-bold">
-                  <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
+                  <img src="/static/icon/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                   <p className="ml-[15px]">Sign Up with GitHub</p>
               </Button>

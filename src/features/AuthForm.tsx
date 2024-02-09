@@ -10,6 +10,8 @@ import {signIn} from "next-auth/react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
+import authStore from "@/app/store/authStore";
+
 import firebaseSignUp from "../../firebase/auth/signUp";
 import firebaseSignIn from "../../firebase/auth/signIn";
 
@@ -23,27 +25,27 @@ interface AuthFormProps {
 const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription, otherChoiceText}) => {
     const router = useRouter();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const email = authStore.email;
+    const password = authStore.password;
 
     const [errorEmailText, setErrorEmailText] = useState("");
     const [errorPasswordText, setErrorPasswordText] = useState("");
 
     const handleEmailChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setErrorEmailText("");
-        setEmail(event.target.value);
+        authStore.setEmail(event.target.value);
     }
 
     const handlePasswordChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setErrorPasswordText("");
-        setPassword(event.target.value);
+        authStore.setPassword(event.target.value);
     }
 
     const handleSignUp = async () => {
         if(checkDataValidity()) {
             let result = await firebaseSignUp(email, password);
 
-            clearFormData();
+            console.log(result);
 
             router.push("/signIn");
         }
@@ -59,7 +61,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
             //document.cookie = `token=${result.result.user.uid}; path=/; max-age=2592000; secure=true`;
 
-            clearFormData();
+            authStore.clearCredentials();
 
             router.push("/messanger");
         }
@@ -75,14 +77,9 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
         return email.match(emailRegEx) && email.length && password.length;
     }
 
-    const clearFormData = () => {
-        setEmail("");
-        setPassword("");
-    }
-
     return (
         <form className="relative w-[40%] mlarge:w-[90%] max-w-[750px] h-auto">
-            <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] w-full h-full max-h-[650px]">
+            <div className="relative grid justify-items-center grid-rows-[9] grid-cols-1 gap-y-[25px] mt-[30px] w-full h-full max-h-[650px]">
                 <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">{authHeader}</h2>
 
                 <p className="text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">{authDescription}</p>
@@ -90,13 +87,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                 {isSignIn ?
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                            <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
@@ -124,13 +121,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     :
                     <>
                         <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
-                            <img src="/static/GoogleIcon.svg" alt="" className="w-[25px] h-[25px]"/>
+                            <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
                         <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
-                            <img src="/static/GithubIcon.svg" alt="" className="ml-[-5px] w-[25px] h-[30px]"/>
+                            <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
                         </Button>
