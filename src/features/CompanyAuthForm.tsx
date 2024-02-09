@@ -1,8 +1,12 @@
 "use client";
 import React, {useState, useEffect} from 'react';
 
+import {useRouter} from 'next/navigation';
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+
+import firebaseSignUp from "../../firebase/auth/signUp";
 
 import authStore from "@/app/store/authStore";
 
@@ -13,12 +17,42 @@ interface CompanyAuthFormProps {
     textFieldLabel: string;
 }
 
-const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({isCreateCompany, authHeader, authDescription, textFieldLabel}) => {
+const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
+    isCreateCompany,
+    authHeader,
+    authDescription,
+    textFieldLabel
+}) => {
+    const router = useRouter();
+
     const [companyAvatar, setCompanyAvatar] = useState("");
 
     const handleImageLoad = (event:any) => {
         setCompanyAvatar(URL.createObjectURL(event.target.files[0]));
     }
+
+    const completeSignUp = async (inviteCode?: string, companyName?: string) => {
+        //let result = await firebaseSignUp(authStore.email, authStore.password);
+
+        if(companyName) {
+
+        }
+
+        if(inviteCode) {
+        }
+
+        //console.log(result);
+
+        authStore.clearCredentials();
+
+         router.push("/messanger");
+    }
+
+    useEffect(() => {
+       if(authStore.inviteCode) {
+          completeSignUp(authStore.inviteCode);
+       }
+    }, []);
 
     return (
         <form className="grid justify-items-center grid-rows-[4] gap-y-[25px] w-[45%] max-w-[750px] h-auto">
@@ -56,7 +90,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({isCreateCompany, authHe
 
             <TextField type="text" label={textFieldLabel} className="authInputMUIField"/>
 
-            <Button variant="contained" className="credentialsAuthMUIButton mt-[10px]">Complete sign up</Button>
+            <Button variant="contained" onClick={() => completeSignUp()} className="credentialsAuthMUIButton mt-[10px]">Complete sign up</Button>
         </form>
     );
 };

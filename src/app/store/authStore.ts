@@ -18,6 +18,10 @@ class AuthStore {
         this.password = password;
     }
 
+    setInviteCode(code: string) {
+        this.inviteCode = code;
+    }
+
     clearCredentials() {
         this.email = "";
         this.password = "";

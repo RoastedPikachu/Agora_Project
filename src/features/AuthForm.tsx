@@ -1,7 +1,7 @@
 "use client";
 import React, {useState, ChangeEvent} from 'react';
 
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 
 import Link from "next/link";
 
@@ -12,7 +12,6 @@ import TextField from "@mui/material/TextField";
 
 import authStore from "@/app/store/authStore";
 
-import firebaseSignUp from "../../firebase/auth/signUp";
 import firebaseSignIn from "../../firebase/auth/signIn";
 
 interface AuthFormProps {
@@ -24,32 +23,38 @@ interface AuthFormProps {
 
 const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription, otherChoiceText}) => {
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const email = authStore.email;
-    const password = authStore.password;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const [errorEmailText, setErrorEmailText] = useState("");
     const [errorPasswordText, setErrorPasswordText] = useState("");
 
     const handleEmailChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setErrorEmailText("");
-        authStore.setEmail(event.target.value);
+        setEmail(event.target.value);
     }
 
     const handlePasswordChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setErrorPasswordText("");
-        authStore.setPassword(event.target.value);
+        setPassword(event.target.value);
     }
 
     const handleSignUp = async () => {
         if(checkDataValidity()) {
-            let result = await firebaseSignUp(email, password);
+            authStore.setEmail(email);
+            authStore.setPassword(password);
 
-            console.log(result);
+            if(searchParams.get("inviteCode")) {
+                authStore.setInviteCode(searchParams.get("inviteCode") as string);
 
-            router.push("/signIn");
+                router.push("/joinTheCompany");
+            }
+            
+            router.push("/createCompany");
         }
-    }
+    }                                       
 
     const handleSignIn = async () => {
         if(checkDataValidity()) {
@@ -60,8 +65,6 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
             //document.cookie = `token=${result.result.user.accessToken}; path=/; max-age=2592000; secure=true`;
 
             //document.cookie = `token=${result.result.user.uid}; path=/; max-age=2592000; secure=true`;
-
-            authStore.clearCredentials();
 
             router.push("/messanger");
         }
@@ -99,9 +102,9 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         </Button>
                     </> :
                     <>
-                        <TextField type="text" label="Insert E-mail" required={true} error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
+                        <TextField type="text" label="Insert E-mail" required={true} inputProps={{autoComplete: 'new-password'}}  error={!!errorEmailText.length} helperText={errorEmailText} onChange={(event) => handleEmailChange(event)} className="authInputMUIField"/>
 
-                        <TextField type="password" label="Insert password" required={true} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
+                        <TextField type="password" label="Insert password"  required={true} inputProps={{autoComplete: 'new-password'}} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
                         <Button variant="contained" onClick={() => handleSignUp()} className="credentialsAuthMUIButton mt-[10px]">Continue</Button>
                     </>
