@@ -5,13 +5,13 @@ import {useRouter, useSearchParams} from 'next/navigation';
 
 import Link from "next/link";
 
-import {signIn} from "next-auth/react";
-
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 import authStore from "@/app/store/authStore";
 
+import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
+import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
 import firebaseSignIn from "../../firebase/auth/signIn";
 
 interface AuthFormProps {
@@ -54,7 +54,19 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
             
             router.push("/createCompany");
         }
-    }                                       
+    }
+
+    const handleGoogleSignIn = async () => {
+        const result = await signInWithGooglePopup();
+
+        console.log(result);
+    }
+
+    const handleGithubSignIn = async () => {
+        const result = await signInWithGithubPopup();
+
+        console.log(result);
+    }
 
     const handleSignIn = async () => {
         if(checkDataValidity()) {
@@ -89,13 +101,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                 {isSignIn ?
                     <>
-                        <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
+                        <Button variant="outlined" onClick={() => handleGoogleSignIn()} className="googleOAuthButton">
                             <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
-                        <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
+                        <Button variant="contained" onClick={() => handleGithubSignIn()} className="githubOAuthButton">
                             <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
@@ -123,13 +135,13 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     </>
                     :
                     <>
-                        <Button variant="outlined" onClick={() => signIn('google')} className="googleOAuthButton">
+                        <Button variant="outlined" onClick={() => handleGoogleSignIn()} className="googleOAuthButton">
                             <img src="/static/icon/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
 
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
-                        <Button variant="contained" onClick={() => signIn('github')} className="githubOAuthButton">
+                        <Button variant="contained" onClick={() => handleGithubSignIn()} className="githubOAuthButton">
                             <img src="/static/icon/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
 
                             <p className="ml-[15px]">Continue with GitHub</p>
