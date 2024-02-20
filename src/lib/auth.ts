@@ -1,6 +1,4 @@
-import {NextAuthOptions, User, getServerSession} from "next-auth";
-import {useSession} from "next-auth/react";
-import {redirect} from "next/navigation";
+import {NextAuthOptions} from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
