@@ -45,7 +45,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
 
         authStore.clearCredentials();
 
-         router.push("/messanger");
+        router.push("/messanger");
     }
 
     useEffect(() => {
