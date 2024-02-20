@@ -30,7 +30,7 @@ export default function Home() {
         <section className="relative mt-[50px] px-[10%] w-full h-[400px]">
             <h2 className="text-[#0d141c] text-[2.25rem] font-bold">Why use Agora?</h2>
 
-            <p className="mt-[20px] text-[#4f7396] text-[1.25rem] font-medium">Agora is a new professional messaging service with a mission to help you do your best work. We're here to help you stay connected, get the word out, and bring in the experts.</p>
+            <p className="mt-[20px] text-[#4f7396] text-[1.25rem] font-medium">Agora is a new professional messaging service with a mission to help you do your best work. We&lsquo;re here to help you stay connected, get the word out, and bring in the experts.</p>
 
             <div className="flex justify-between items-center mt-[40px] w-full h-[200px]">
                 <div className="p-[20px] w-[32%] h-full border-2 border-[#e5e8eb] rounded-[10px]">
@@ -38,7 +38,7 @@ export default function Home() {
 
                     <h3 className="mt-[15px] text-[#0d141c] text-[1.25rem] font-bold">Stay connected</h3>
 
-                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you'll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
+                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you&lsquo;ll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
                 </div>
 
                 <div className="p-[20px] w-[32%] h-full border-2 border-[#e5e8eb] rounded-[10px]">
@@ -46,7 +46,7 @@ export default function Home() {
 
                     <h3 className="mt-[15px] text-[#0d141c] text-[1.25rem] font-bold">Stay connected</h3>
 
-                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you'll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
+                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you&lsquo;ll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
                 </div>
 
                 <div className="p-[20px] w-[32%] h-full border-2 border-[#e5e8eb] rounded-[10px]">
@@ -54,7 +54,7 @@ export default function Home() {
 
                     <h3 className="mt-[15px] text-[#0d141c] text-[1.25rem] font-bold">Stay connected</h3>
 
-                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you'll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
+                    <p className="mt-[10px] text-[#4f7396] text-[1rem] font-medium">With Agora, you&lsquo;ll never miss a beat. <br/> Stay in touch with your team and get updates on things that matter to you.</p>
                 </div>
             </div>
         </section>
