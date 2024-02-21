@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 
 const TheHomePageHeader = () => {
     return (
-        <header className="relative flex justify-between items-center px-[10%] w-full h-[65px] bg-[#ffffff] border-b-2 border-[#e5e8eb]">
+        <header className="relative flex justify-between items-center px-[10%] deskWide:px-[calc(((100%-1440px)/2)+144px)] w-full h-[65px] bg-[#ffffff] border-b-2 border-[#e5e8eb]">
            <div className="flex items-center w-[15%] h-[25px]">
                <img src="/static/header/logo/AgoraLogo.svg" alt="" className="w-[30px] h-[30px] border-2 border-[#2176d2] rounded-[5px]"/>
 
