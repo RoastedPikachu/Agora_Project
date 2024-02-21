@@ -43,6 +43,7 @@ export default function Home() {
                 <div className="flex justify-between items-center mt-[40px] w-full h-[220px]">
                     {advantages.map(advantage => (
                         <Advantage
+                            key={advantage.id}
                             id={advantage.id}
                             iconPath={advantage.iconPath}
                             title={advantage.title}

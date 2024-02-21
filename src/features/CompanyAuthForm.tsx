@@ -63,7 +63,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                             {companyAvatar.length ?
                                 <>
                                     <button onClick={() => setCompanyAvatar("")} className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer">
-                                        <img src="/static/icon/XMarkIcon.svg" alt="Button: remove avatar" className="w-[35px] h-[35px]"/>
+                                        <img src="/icons/XMarkIcon.svg" alt="Button: remove avatar" className="w-[35px] h-[35px]"/>
                                     </button>
 
                                     <img src={companyAvatar} alt="" className="mx-[10px] w-[200px] h-[200px] rounded-[10px]"/>

@@ -2,20 +2,23 @@ import React from 'react';
 
 const TheMessangerPageHeader = () => {
     return (
-        <header className="relative flex items-center pl-[15%] pr-[50px] w-full h-[45px] bg-[#42a5f5]">
-            <button className="flex justify-center items-center w-[35px] h-[35px]">
-                <img src="/static/messangerPage/icons/HistoryIcon.svg" alt="" className="w-[30px] h-[30px]"/>
-            </button>
+        <header className="relative flex justify-between items-center pl-[50px] pr-[5%] w-full h-[65px] bg-[#ffffff] border-b-2 border-[#e5e8eb]">
+            <div className="flex items-center w-[15%] h-[25px]">
+                <img src="/static/header/logo/AgoraLogo.svg" alt="" className="w-[30px] h-[30px] border-2 border-[#2176d2] rounded-[5px]"/>
 
-            <input type="text" placeholder="Поиск Название компании" className="ml-[25px] px-[15px] w-[72.5%] h-[30px] bg-[#84c8ff] rounded-[10px] focus:border-[1px] focus:border-[#120154] placeholder-[#120154] placeholder:font-medium placeholder:text-center outline-none"/>
+                <h2 className="mt-[-5px] ml-[25px] h-[27.5px] text-[#2176d2] text-[1.5rem] font-['Kamerik'] font-bold">Agora</h2>
+            </div>
 
-            <div className="flex justify-between ml-[20%] w-[95px]">
-                <button className="flex justify-center items-center w-[35px] h-[35px]">
-                    <img src="/static/messangerPage/icons/HelpIcon.svg" alt="" className="w-[30px] h-[30px]"/>
+            <div className="flex items-center w-[165px]">
+                <button className="flex justify-center items-center w-[40px] h-[40px] bg-[#e5e8eb] rounded-[7.5px]">
+                    <img src="/static/messangerPage/icons/SearchIcon.svg" alt="" className="w-[20px] h-[20px]"/>
                 </button>
 
-                <button className="flex justify-center items-center w-[35px] h-[35px] bg-[#120154] rounded-[10px]">
+                <button className="flex justify-center items-center ml-[15px] w-[40px] h-[40px] bg-[#e5e8eb] rounded-[7.5px]">
+                    <img src="/static/messangerPage/icons/NotificationsIcon.svg" alt="" className="w-[20px] h-[20px]"/>
                 </button>
+
+                <button className="ml-[30px] w-[40px] h-[40px] bg-[#747474] rounded-[7.5px]"></button>
             </div>
         </header>
     );
