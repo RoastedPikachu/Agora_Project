@@ -1,6 +1,11 @@
-import React from 'react';
+"use client";
+import React, {useState} from 'react';
+
+import ProfileModalWindow from "@/shared/ProfileModalWindow";
 
 const TheMessangerPageHeader = () => {
+    const [isProfileModalActive, setProfileModalActive] = useState(false);
+
     return (
         <header className="relative flex justify-between items-center pl-[50px] pr-[5%] w-full h-[65px] bg-[#ffffff] border-b-2 border-[#e5e8eb]">
             <div className="flex items-center w-[15%] h-[25px]">
@@ -18,7 +23,11 @@ const TheMessangerPageHeader = () => {
                     <img src="/static/messangerPage/icons/NotificationsIcon.svg" alt="" className="w-[20px] h-[20px]"/>
                 </button>
 
-                <button className="ml-[30px] w-[40px] h-[40px] bg-[#747474] rounded-[7.5px]"></button>
+                <div className="relative ml-[30px] w-[40px] h-[40px]">
+                    <button onClick={() => setProfileModalActive(prevState => !prevState)} className="w-full h-full bg-[#747474] rounded-[7.5px]"></button>
+
+                    {isProfileModalActive && <ProfileModalWindow/>}
+                </div>
             </div>
         </header>
     );
