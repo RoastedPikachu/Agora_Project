@@ -10,7 +10,7 @@ const Page = () => {
         <main className="relative flex flex-col justify-center items-center w-full h-[100vh]">
             <GoBackButton designation={"/"} buttonText={"I don't want to sign up"}/>
 
-            <img src="/logos/AgoraLogoPlusText.svg" alt="" className="relative w-[200px] h-[50px]"/>
+            <img src="/static/logos/AgoraLogoPlusText.svg" alt="" className="relative w-[200px] h-[50px]"/>
 
             <AuthForm
                 isSignIn={false}

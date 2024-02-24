@@ -10,19 +10,19 @@ export default function Home() {
   const advantages = [
       {
           id: 1,
-          iconPath: "/static/ConnectionIcon.svg",
+          iconPath: "/static/mainPage/icons/ConnectionIcon.svg",
           title: "Stay connected",
           description: "With Agora, you'll never miss a beat. Stay in touch with your team and get updates on things that matter to you."
       },
       {
           id: 2,
-          iconPath: "/static/HomeIcon.svg",
+          iconPath: "/static/mainPage/icons/HomeIcon.svg",
           title: "Get the word out",
           description: "Share info with the right people at the right time. With Agora, you can easily send messages, tag your team, and share files."
       },
       {
           id: 3,
-          iconPath: "/static/ExpertsIcon.svg",
+          iconPath: "/static/mainPage/icons/ExpertsIcon.svg",
           title: "Bring in the experts",
           description: "Need help? Get it from the pros. With Agora, you can tag someone from your company and ask for their expertise."
       },

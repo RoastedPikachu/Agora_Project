@@ -6,9 +6,13 @@ import {useRouter} from 'next/navigation';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
+import firebase from "firebase/compat/app";
+
+import firebaseApp, {auth} from "../../firebase/config";
 import firebaseSignUp from "../../firebase/auth/signUp";
 
 import authStore from "@/app/store/authStore";
+import firebaseCreateNewCompany from "../../firebase/auth/createCompany";
 
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
@@ -25,32 +29,50 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
 }) => {
     const router = useRouter();
 
+    const [companyName, setCompanyName] = useState("");
+    const [inviteCode, setInviteCode] = useState("");
+
     const [companyAvatar, setCompanyAvatar] = useState("");
 
     const handleImageLoad = (event:any) => {
         setCompanyAvatar(URL.createObjectURL(event.target.files[0]));
     }
 
-    const completeSignUp = async (inviteCode?: string, companyName?: string) => {
-        //let result = await firebaseSignUp(authStore.email, authStore.password);
-
+    const completeSignUp = () => {
         if(companyName) {
+            firebaseSignUp(authStore.email, authStore.password)
+                .then(() => {
+                    const user = auth.currentUser;
 
+                    // TODO: create a request: set userStatus (like isOwner)
+
+                    alert("Successfull sign up")
+
+                    firebaseCreateNewCompany(crypto.randomUUID(), companyName, companyAvatar, authStore.email)
+                        .then(() => {
+                            console.log("Successfull company creation");
+                        })
+                        .catch((e) => {
+                            console.log(e);
+                        })
+                })
+                .catch((e) => {
+                    console.log(`Error during sign up ${e}`);
+                })
         }
 
         if(inviteCode) {
-        }
 
-        //console.log(result);
+        }
 
         authStore.clearCredentials();
 
-        router.push("/messanger");
+        // router.push("/messanger");
     }
 
     useEffect(() => {
        if(authStore.inviteCode) {
-          completeSignUp(authStore.inviteCode);
+          setInviteCode(authStore.inviteCode);
        }
     }, []);
 
@@ -62,11 +84,13 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                         <div className="relative px-[20px] w-full h-auto">
                             {companyAvatar.length ?
                                 <>
-                                    <button onClick={() => setCompanyAvatar("")} className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer">
-                                        <img src="/icons/XMarkIcon.svg" alt="Button: remove avatar" className="w-[35px] h-[35px]"/>
+                                    <button onClick={() => setCompanyAvatar("")} className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer z-30">
+                                        <img src="/static/icons/XMarkIcon.svg" alt="Button: remove avatar" className="w-[35px] h-[35px]"/>
                                     </button>
 
-                                    <img src={companyAvatar} alt="" className="mx-[10px] w-[200px] h-[200px] rounded-[10px]"/>
+                                    <div className="relative mx-[10px] w-[200px] h-[200px] object-cover rounded-[10px]">
+                                        <img src={companyAvatar} alt="" className="w-full h-full rounded-[10px]"/>
+                                    </div>
                                 </>
                                 :
                                 <label htmlFor="CompanyAvatar" className="flex justify-center items-center mx-[10px] pb-[20px] w-[200px] h-[200px] border-4 border-dashed border-[#2076d2] rounded-[10px] text-[#2076d2] text-[8rem] cursor-pointer">+</label>
@@ -88,7 +112,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                 </>
             }
 
-            <TextField type="text" label={textFieldLabel} className="authInputMUIField"/>
+            <TextField type="text" label={textFieldLabel} onChange={(event) => isCreateCompany ? setCompanyName(event.target.value) : setInviteCode(event.target.value)} className="authInputMUIField"/>
 
             <Button variant="contained" onClick={() => completeSignUp()} className="credentialsAuthMUIButton mt-[10px]">Complete sign up</Button>
         </form>

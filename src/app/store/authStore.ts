@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 
 class AuthStore {
+    name = "";
     email = "";
     password = "";
 
@@ -8,6 +9,10 @@ class AuthStore {
 
     constructor() {
        makeAutoObservable(this);
+    }
+
+    setName(name: string) {
+        this.name = name;
     }
 
     setEmail(email: string) {
@@ -23,6 +28,7 @@ class AuthStore {
     }
 
     clearCredentials() {
+        this.name = "";
         this.email = "";
         this.password = "";
     }

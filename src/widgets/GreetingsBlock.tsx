@@ -22,7 +22,7 @@ const GreetingsBlock = () => {
 
     return (
         <section className="relative px-[10%] w-full h-[580px]">
-            <div className="mt-[50px] px-[50px] py-[30px] w-full h-[580px] bg-[url('/static/GreetingsBackgroundImage.png')] bg-cover rounded-[20px]">
+            <div className="mt-[50px] px-[50px] py-[30px] w-full h-[580px] bg-[url('/static/mainPage/GreetingsBackgroundImage.png')] bg-cover rounded-[20px]">
                 <h1 className="pt-[170px] w-full text-[#ffffff] text-[4rem] text-left font-bold leading-[1.25] z-20">Agora is a new professional messaging service.</h1>
 
                 <p className="mt-[20px] text-[#ffffff] text-[2rem] font-light">The best corporate messanger which made by people and for people</p>
