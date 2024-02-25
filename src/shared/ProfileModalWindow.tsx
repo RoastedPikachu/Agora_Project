@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from 'react';
 
-import firebase from "firebase/compat/app";
+import {auth} from "../../firebase/config";
 
 const ProfileModalWindow = () => {
     const [statuses, setStatuses] = useState([
@@ -29,7 +29,7 @@ const ProfileModalWindow = () => {
     ])
 
     const signOut = () => {
-        firebase.auth().signOut()
+        auth.signOut()
             .then(() => {
                 alert("Successful sign out");
             })

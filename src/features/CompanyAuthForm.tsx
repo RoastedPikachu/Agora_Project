@@ -6,13 +6,12 @@ import {useRouter} from 'next/navigation';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-import firebase from "firebase/compat/app";
-
-import firebaseApp, {auth} from "../../firebase/config";
+import {auth} from "../../firebase/config";
 import firebaseSignUp from "../../firebase/auth/signUp";
 
 import authStore from "@/app/store/authStore";
 import firebaseCreateNewCompany from "../../firebase/auth/createCompany";
+import firebaseCreateNewUser from "../../firebase/auth/createUser";
 
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
@@ -44,17 +43,16 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                 .then(() => {
                     const user = auth.currentUser;
 
-                    // TODO: create a request: set userStatus (like isOwner)
-
-                    alert("Successfull sign up")
-
-                    firebaseCreateNewCompany(crypto.randomUUID(), companyName, companyAvatar, authStore.email)
+                    Promise.all([
+                        firebaseCreateNewUser(user?.uid as string, authStore.name, user?.email as string, true),
+                        firebaseCreateNewCompany(crypto.randomUUID(), companyName, companyAvatar, user?.email as string)
+                    ])
                         .then(() => {
-                            console.log("Successfull company creation");
+                            console.log("Successfull company and user creation");
                         })
                         .catch((e) => {
                             console.log(e);
-                        })
+                        })  
                 })
                 .catch((e) => {
                     console.log(`Error during sign up ${e}`);

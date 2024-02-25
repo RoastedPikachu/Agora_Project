@@ -10,6 +10,8 @@ import TextField from "@mui/material/TextField";
 
 import authStore from "@/app/store/authStore";
 
+
+import {auth} from "../../firebase/config";
 import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
 import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
 import firebaseSignIn from "../../firebase/auth/signIn";
