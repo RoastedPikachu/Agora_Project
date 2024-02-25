@@ -24,7 +24,7 @@ const TheMessangerPageHeader = () => {
                 </button>
 
                 <div className="relative ml-[30px] w-[40px] h-[40px]">
-                    <button onClick={() => setProfileModalActive(prevState => !prevState)} className="w-full h-full bg-[#747474] rounded-[7.5px]"></button>
+                    <button onClick={() => setProfileModalActive(prevState => !prevState)} className="w-full h-full bg-[url('/static/messangerPage/icons/DefaultAvatarIcon.svg')] rounded-[7.5px]"></button>
 
                     {isProfileModalActive && <ProfileModalWindow/>}
                 </div>

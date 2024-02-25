@@ -13,6 +13,8 @@ import authStore from "@/app/store/authStore";
 import firebaseCreateNewCompany from "../../firebase/auth/createCompany";
 import firebaseCreateNewUser from "../../firebase/auth/createUser";
 
+import {handleImageLoad} from "@/lib/generalFunctions";
+
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
     authHeader: string;
@@ -32,10 +34,6 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
     const [inviteCode, setInviteCode] = useState("");
 
     const [companyAvatar, setCompanyAvatar] = useState("");
-
-    const handleImageLoad = (event:any) => {
-        setCompanyAvatar(URL.createObjectURL(event.target.files[0]));
-    }
 
     const completeSignUp = () => {
         if(companyName) {
@@ -100,7 +98,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
 
                     <h2 className="mt-[-40px] ml-[10px] text-[#2076d2] text-[2.5rem] font-['Kamerik']">{authHeader}</h2>
 
-                    <input type="file" onChange={(event) => handleImageLoad(event)} id="CompanyAvatar" className="hidden"/>
+                    <input type="file" onChange={(event) => handleImageLoad(event, setCompanyAvatar)} id="CompanyAvatar" className="hidden"/>
                 </div>
                 :
                 <>

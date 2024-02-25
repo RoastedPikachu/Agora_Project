@@ -12,7 +12,8 @@ export default async function firebaseCreateNewCompany(companyId:string, name: s
             inviteCode: null,
             companyName: name,
             companyAvatar: avatar,
-            users: [initialUserEmail]
+            users: [initialUserEmail],
+            chats: []
         })
     } catch (err:any) {
         error = err;

@@ -12,6 +12,8 @@ export default async function firebaseCreateNewUser(userId: string, displayName:
             displayName: displayName,
             userEmail: userEmail,
             isCompanyOwner: isCompanyOwner,
+            connectionStatus: 10,
+            userAvatar: ""
         })
     } catch (err:any) {
         error = err;
