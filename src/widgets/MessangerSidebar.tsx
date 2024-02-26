@@ -46,7 +46,7 @@ const MessangerSidebar = () => {
                     >
                         <img src="/static/messangerPage/icons/ChatIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
-                        <p className="ml-[20px] text-[#0d141c] text-[1.5rem] text-left font-semibold">{category.name}</p>
+                        <p className="ml-[20px] text-[#0d141c] text-[1.375rem] text-left font-semibold">{category.name}</p>
                     </button>
                 ))}
             </div>

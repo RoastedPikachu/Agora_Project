@@ -1,17 +1,18 @@
 import {ref, update} from "firebase/database";
 
 import {database} from "../config";
+import firebaseGetCompanyById from "./getCompany";
 
-export default async function firebaseSetCompanyInviteCode(companyId: string, inviteCode: string) {
+export default async function firebaseAddUserToCompany(companyId: string | null, userEmail: string) {
     let result = null;
     let error = null;
 
     try {
-        result = update(ref(database, "companies/" + companyId), {
-            inviteCode: inviteCode
-        })
+        const company = await firebaseGetCompanyById(companyId);
 
-        alert(`Your company Invite code: ${inviteCode} \n Your company Invite link: https://localhost:3000/signUp?inviteCode=${inviteCode}`);
+        result = update(ref(database, "companies/" + companyId), {
+            users: [...company?.val().users, userEmail]
+        })
     } catch (err:any) {
         error = err;
     }

@@ -12,8 +12,11 @@ import firebaseSignUp from "../../firebase/auth/signUp";
 import authStore from "@/app/store/authStore";
 import firebaseCreateNewCompany from "../../firebase/auth/createCompany";
 import firebaseCreateNewUser from "../../firebase/auth/createUser";
+import firebaseCheckSessionExpiration from "../../firebase/auth/checkSessionExpiration";
 
-import {handleImageLoad} from "@/lib/generalFunctions";
+import {getCompanyIdFromInviteCode, handleImageLoad} from "@/lib/generalFunctions";
+import firebaseGetCompanyById from "../../firebase/company/getCompany";
+import firebaseAddUserToCompany from "../../firebase/company/addUserToCompany";
 
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
@@ -47,6 +50,12 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                     ])
                         .then(() => {
                             console.log("Successfull company and user creation");
+
+                            setInterval(() => {
+                                if (auth.currentUser) {
+                                    firebaseCheckSessionExpiration();
+                                }
+                            }, 3600000);
                         })
                         .catch((e) => {
                             console.log(e);
@@ -58,12 +67,37 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
         }
 
         if(inviteCode) {
+            firebaseSignUp(authStore.email, authStore.password)
+                .then(async () => {
+                    const user = auth.currentUser;
 
+                    const result = await firebaseGetCompanyById(getCompanyIdFromInviteCode(inviteCode))
+
+                    Promise.all([
+                        firebaseAddUserToCompany(result?.val().companyId, user?.email as string),
+                        firebaseCreateNewUser(user?.uid as string, authStore.name, user?.email as string, true)
+                    ])
+                        .then(() => {
+                            console.log("Successfull user creation and company find");
+
+                            setInterval(() => {
+                                if (auth.currentUser) {
+                                    firebaseCheckSessionExpiration();
+                                }
+                            }, 3600000);
+                        })
+                        .catch((e) => {
+                            console.log(e);
+                        })
+                })
+                .catch((e) => {
+                    console.log(`Error during sign up ${e}`);
+                })
         }
 
         authStore.clearCredentials();
 
-        // router.push("/messanger");
+        router.push("/messanger");
     }
 
     useEffect(() => {

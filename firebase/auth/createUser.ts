@@ -7,7 +7,7 @@ export default async function firebaseCreateNewUser(userId: string, displayName:
     let error = null;
 
     try {
-        set(ref(database, "users/" + userId), {
+        result = set(ref(database, "users/" + userId), {
             userId: userId,
             displayName: displayName,
             userEmail: userEmail,

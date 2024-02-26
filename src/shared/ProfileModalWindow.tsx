@@ -6,7 +6,7 @@ import {auth} from "../../firebase/config";
 import firebaseChangeUserStatus from "../../firebase/user/changeStatus";
 import firebaseChangeUserAvatar from "../../firebase/user/changeAvatar";
 
-import {handleImageLoad} from "@/lib/generalFunctions";
+import {getCookie, handleImageLoad} from "@/lib/generalFunctions";
 import firebaseSetCompanyInviteCode from "../../firebase/company/addInviteCode";
 
 const ProfileModalWindow = () => {
@@ -56,11 +56,11 @@ const ProfileModalWindow = () => {
 
 
     const getCompanyId = () => {
-
+        return getCookie("companyId") as string;
     }
 
     const generateInviteCode = () => {
-
+        return crypto.randomUUID() + "/" + getCompanyId();
     }
 
     const signOut = () => {

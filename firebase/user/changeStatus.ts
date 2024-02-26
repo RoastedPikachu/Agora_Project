@@ -7,7 +7,7 @@ export default async function firebaseChangeUserAvatar(userId: string, statusCod
     let error = null;
 
     try {
-        update(ref(database, "users/" + userId), {
+        result = update(ref(database, "users/" + userId), {
             connectionStatus: statusCode
         })
     } catch (err:any) {
