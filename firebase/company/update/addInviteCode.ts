@@ -1,6 +1,6 @@
 import {ref, update} from "firebase/database";
 
-import {database} from "../config";
+import {database} from "../../config";
 
 export default async function firebaseSetCompanyInviteCode(companyId: string, inviteCode: string) {
     let result = null;

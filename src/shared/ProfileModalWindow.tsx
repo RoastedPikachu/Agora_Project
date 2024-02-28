@@ -1,13 +1,15 @@
 "use client";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {auth} from "../../firebase/config";
 
-import firebaseChangeUserStatus from "../../firebase/user/changeStatus";
-import firebaseChangeUserAvatar from "../../firebase/user/changeAvatar";
+import firebaseChangeUserStatus from "../../firebase/user/update/changeStatus";
+import firebaseChangeUserAvatar from "../../firebase/user/update/changeAvatar";
+import firebaseGetUser from "../../firebase/user/read/getUser";
+
+import firebaseSetCompanyInviteCode from "../../firebase/company/update/addInviteCode";
 
 import {getCookie, handleImageLoad} from "@/lib/generalFunctions";
-import firebaseSetCompanyInviteCode from "../../firebase/company/addInviteCode";
 
 const ProfileModalWindow = () => {
     const [statuses, setStatuses] = useState([
@@ -32,7 +34,9 @@ const ProfileModalWindow = () => {
             name: "Offline",
             isCurrent: false,
         }
-    ])
+    ]);
+
+    const [userName, setUserName] = useState("");
 
     const changeUserAvatar = (imagePath: string) => {
         firebaseChangeUserAvatar(auth.currentUser?.uid as string, imagePath)
@@ -59,6 +63,12 @@ const ProfileModalWindow = () => {
         return getCookie("companyId") as string;
     }
 
+    const getUserName = async () => {
+        const result = await firebaseGetUser(auth.currentUser?.uid as string);
+
+        setUserName(result?.val()?.displayName);
+    }
+
     const generateInviteCode = () => {
         return crypto.randomUUID() + "/" + getCompanyId();
     }
@@ -73,13 +83,17 @@ const ProfileModalWindow = () => {
             })
     }
 
+    useEffect(() => {
+        getUserName();
+    }, []);
+
     return (
         <div className="absolute top-[51px] right-0 pt-[20px] pb-[5px] w-[300px] h-auto bg-[#ffffff] border-2 border-[#e5e8eb] rounded-[10px] z-30">
             <div className="relative flex items-center mx-[25px] w-[100%] h-[50px]">
                 <img src="/static/messangerPage/icons/DefaultAvatarIcon.svg" alt="" className="row-span-2 w-[40px] h-[40px] bg-[#747474] rounded-[7.5px]"/>
 
                 <div className="grid items-center grid-rows-2 grid-cols-1 ml-[15px]">
-                    <h4 className="text-[#0d141c] text-[1.125rem] font-bold">Boris Karabut</h4>
+                    <h4 className="text-[#0d141c] text-[1.125rem] font-bold">{userName}</h4>
 
                     <div className="flex items-center">
                         <div className={`w-[12.5px] h-[12.5px] rounded-[50%] ${statuses.find(status => status.isCurrent)?.color}`}></div>

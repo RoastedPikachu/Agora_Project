@@ -1,7 +1,7 @@
 import {ref, update} from "firebase/database";
 
-import {database} from "../config";
-import firebaseGetCompanyById from "./getCompany";
+import {database} from "../../config";
+import firebaseGetCompanyById from "../read/getCompany";
 
 export default async function firebaseAddUserToCompany(companyId: string | null, userEmail: string) {
     let result = null;

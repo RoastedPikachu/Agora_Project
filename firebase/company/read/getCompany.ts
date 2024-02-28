@@ -1,6 +1,6 @@
 import {ref, get} from "firebase/database";
 
-import {database} from "../config";
+import {database} from "../../config";
 
 export default async function firebaseGetCompanyById(companyId: string | null) {
     let result = null;

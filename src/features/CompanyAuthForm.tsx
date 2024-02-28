@@ -9,14 +9,17 @@ import TextField from "@mui/material/TextField";
 import {auth} from "../../firebase/config";
 import firebaseSignUp from "../../firebase/auth/signUp";
 
-import authStore from "@/app/store/authStore";
-import firebaseCreateNewCompany from "../../firebase/auth/createCompany";
-import firebaseCreateNewUser from "../../firebase/auth/createUser";
+import firebaseCreateNewCompany from "../../firebase/company/create/createCompany";
+import firebaseCreateNewUser from "../../firebase/user/create/createUser";
 import firebaseCheckSessionExpiration from "../../firebase/auth/checkSessionExpiration";
 
+import firebaseGetCompanyById from "../../firebase/company/read/getCompany";
+import firebaseAddUserToCompany from "../../firebase/company/update/addUserToCompany";
+import firebaseChangeUserName from "../../firebase/user/update/changeName";
+
 import {getCompanyIdFromInviteCode, handleImageLoad} from "@/lib/generalFunctions";
-import firebaseGetCompanyById from "../../firebase/company/getCompany";
-import firebaseAddUserToCompany from "../../firebase/company/addUserToCompany";
+
+import authStore from "@/app/store/authStore";
 
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
@@ -74,6 +77,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                     const result = await firebaseGetCompanyById(getCompanyIdFromInviteCode(inviteCode))
 
                     Promise.all([
+                        firebaseChangeUserName(user?.uid as string, authStore.name),
                         firebaseAddUserToCompany(result?.val().companyId, user?.email as string),
                         firebaseCreateNewUser(user?.uid as string, authStore.name, user?.email as string, true)
                     ])

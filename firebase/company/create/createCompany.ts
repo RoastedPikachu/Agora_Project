@@ -1,6 +1,6 @@
 import {ref, set} from "firebase/database";
 
-import {database} from "../config";
+import {database} from "../../config";
 import {setCookie} from "@/lib/generalFunctions";
 
 export default async function firebaseCreateNewCompany(companyId:string, name: string, avatar: string, initialUserEmail: string) {

@@ -1,6 +1,6 @@
 import {ref, set} from "firebase/database";
 
-import {database} from "../config";
+import {database} from "../../config";
 
 export default async function firebaseCreateNewUser(userId: string, displayName: string, userEmail: string, isCompanyOwner: boolean) {
     let result = null;

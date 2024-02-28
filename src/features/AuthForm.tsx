@@ -10,8 +10,6 @@ import TextField from "@mui/material/TextField";
 
 import authStore from "@/app/store/authStore";
 
-
-import {auth} from "../../firebase/config";
 import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
 import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
 import firebaseSignIn from "../../firebase/auth/signIn";
@@ -83,10 +81,6 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
             let result = await firebaseSignIn(email, password);
 
             console.log(result);
-
-            //document.cookie = `token=${result.result.user.accessToken}; path=/; max-age=2592000; secure=true`;
-
-            //document.cookie = `token=${result.result.user.uid}; path=/; max-age=2592000; secure=true`;
 
             router.push("/messanger");
         }
