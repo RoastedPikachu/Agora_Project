@@ -7,6 +7,8 @@ class AuthStore {
 
     inviteCode = "";
 
+    isSignUp = false;
+
     constructor() {
        makeAutoObservable(this);
     }
@@ -25,6 +27,14 @@ class AuthStore {
 
     setInviteCode(code: string) {
         this.inviteCode = code;
+    }
+
+    signUp() {
+        this.isSignUp = true;
+    }
+
+    signOut() {
+        this.isSignUp = false;
     }
 
     clearCredentials() {
