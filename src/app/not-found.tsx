@@ -25,7 +25,7 @@ const NotFound = () => {
             <div className="grid justify-items-center grid-rows-3 row-span-3 h-[180px]">
                 <h1 className="text-[2rem] text-center font-['Space_Grotesk'] font-bold">404 - Not Found</h1>
 
-                <p className="text-[1.375rem] text-center font-['Space_Grotesk'] font-medium">The page you're looking for doesn't exist.</p>
+                <p className="text-[1.375rem] text-center font-['Space_Grotesk'] font-medium">The page you&lsquo;re looking for doesn&lsquo;t exist.</p>
 
                 <ContainedButton
                     styles={"mt-[10px] w-[180px] h-[40px]"}
