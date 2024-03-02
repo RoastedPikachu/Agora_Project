@@ -11,6 +11,8 @@ import firebaseSetCompanyInviteCode from "../../firebase/company/update/addInvit
 
 import {getCookie, handleImageLoad} from "@/lib/generalFunctions";
 
+import authStore from "@/app/store/authStore";
+
 const ProfileModalWindow = () => {
     const [statuses, setStatuses] = useState([
         {
@@ -76,6 +78,7 @@ const ProfileModalWindow = () => {
     const signOut = () => {
         auth.signOut()
             .then(() => {
+                authStore.signOut();
                 alert("Successful sign out");
             })
             .catch(error => {

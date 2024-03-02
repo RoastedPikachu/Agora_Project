@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 
 import authStore from "@/app/store/authStore";
 
-import Button from "@mui/material/Button";
+import ContainedButton from "@/shared/ContainedButton";
 
 const GreetingsBlock = () => {
     const router = useRouter();
@@ -30,7 +30,7 @@ const GreetingsBlock = () => {
                 <div className="flex items-center mt-[30px] pl-[30px] pr-[10px] w-[460px] h-[60px] bg-[#ffffff] rounded-[15px]">
                     <input type="text" placeholder="Enter your work email" onChange={(event) => setEmail(event.target.value)} className="w-[380px] h-full placeholder:text-[#4f7396] text-[1.125rem] outline-0"/>
 
-                    <Button variant="contained" onClick={() => goToSignUpPage()} className="w-[180px] h-[45px] bg-[#2076d2] rounded-[10px] font-semibold">Get started</Button>
+                    <ContainedButton styles={"w-[180px] h-[45px]"} text={"Get started"} handleFunction={goToSignUpPage}/>
                 </div>
             </div>
         </section>

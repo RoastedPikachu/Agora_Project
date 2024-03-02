@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 
 import {useRouter} from 'next/navigation';
 
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 import {auth} from "../../firebase/config";
@@ -20,6 +19,8 @@ import firebaseChangeUserName from "../../firebase/user/update/changeName";
 import {getCompanyIdFromInviteCode, handleImageLoad} from "@/lib/generalFunctions";
 
 import authStore from "@/app/store/authStore";
+
+import ContainedButton from "@/shared/ContainedButton";
 
 interface CompanyAuthFormProps {
     isCreateCompany: boolean;
@@ -52,6 +53,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
                         firebaseCreateNewCompany(crypto.randomUUID(), companyName, companyAvatar, user?.email as string)
                     ])
                         .then(() => {
+                            authStore.signUp();
                             console.log("Successfull company and user creation");
 
                             setInterval(() => {
@@ -148,7 +150,10 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
 
             <TextField type="text" label={textFieldLabel} onChange={(event) => isCreateCompany ? setCompanyName(event.target.value) : setInviteCode(event.target.value)} className="authInputMUIField"/>
 
-            <Button variant="contained" onClick={() => completeSignUp()} className="credentialsAuthMUIButton mt-[10px]">Complete sign up</Button>
+            <ContainedButton
+                styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                text={"Complete sign up"}
+                handleFunction={completeSignUp}/>
         </form>
     );
 };

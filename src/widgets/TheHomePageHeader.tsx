@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import Button from "@mui/material/Button";
+import ContainedButton from "@/shared/ContainedButton";
 
 const TheHomePageHeader = () => {
     return (
@@ -15,11 +16,11 @@ const TheHomePageHeader = () => {
 
            <nav className="relative flex items-center w-[270px] h-[40px]">
                <Link href="/signUp" className="h-full">
-                   <Button variant="contained" className="w-[120px] h-full bg-[#2176d2] rounded-[10px] font-semibold">Sign up</Button>
+                   <ContainedButton styles={"w-[120px] h-full"} text={"Sign Up"}/>
                </Link>
 
                <Link href="/signIn" className="h-full">
-                   <Button variant="contained" className="ml-[30px] w-[120px] h-full bg-[#e5e8eb] hover:bg-[#e5e8eb] rounded-[10px] text-[#0d141c] font-semibold">Sign in</Button>
+                   <ContainedButton styles={"ml-[30px] w-[120px] h-full bg-[#e5e8eb] hover:bg-[#e5e8eb] text-[#0d1410]"} text={"Sign in"}/>
                </Link>
            </nav>
         </header>

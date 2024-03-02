@@ -13,6 +13,7 @@ import authStore from "@/app/store/authStore";
 import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
 import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
 import firebaseSignIn from "../../firebase/auth/signIn";
+import ContainedButton from "@/shared/ContainedButton";
 
 interface AuthFormProps {
     isSignIn: boolean;
@@ -118,11 +119,12 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
-                        <Button variant="contained" onClick={() => handleGithubSignIn()} className="githubOAuthButton">
-                            <img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
-
-                            <p className="ml-[15px]">Continue with GitHub</p>
-                        </Button>
+                        <ContainedButton
+                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
+                            text={"Continue with GitHub"}
+                            handleFunction={handleGithubSignIn}
+                            children={<img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>}
+                        />
                     </> :
                     <>
                         <TextField type="text" label="Enter Name and Surname" required={true} inputProps={{autoComplete: 'new-password'}}  error={!!errorNameText.length} helperText={errorNameText} onChange={(event) => handleNameChange(event)} className="authInputMUIField"/>
@@ -131,7 +133,11 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                         <TextField type="password" label="Enter password"  required={true} inputProps={{autoComplete: 'new-password'}} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField"/>
 
-                        <Button variant="contained" onClick={() => handleSignUp()} className="credentialsAuthMUIButton mt-[10px]">Continue</Button>
+                        <ContainedButton
+                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                            text={"Continue"}
+                            handleFunction={handleSignUp}
+                        />
                     </>
                 }
 
@@ -144,7 +150,11 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                         <TextField type="password" label="Insert password" required error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
-                        <Button variant="contained" onClick={() => handleSignIn()} className="credentialsAuthMUIButton mt-[10px]">Sign in</Button>
+                        <ContainedButton
+                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                            text={"Sign in"}
+                            handleFunction={handleSignIn}
+                        />
                     </>
                     :
                     <>
@@ -154,11 +164,12 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                             <p className="ml-[15px]">Continue with Google</p>
                         </Button>
 
-                        <Button variant="contained" onClick={() => handleGithubSignIn()} className="githubOAuthButton">
-                            <img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] w-[25px] h-[30px]"/>
-
-                            <p className="ml-[15px]">Continue with GitHub</p>
-                        </Button>
+                        <ContainedButton
+                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
+                            text={"Continue with GitHub"}
+                            handleFunction={handleGithubSignIn}
+                            children={<img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>}
+                        />
                     </>
                 }
 
