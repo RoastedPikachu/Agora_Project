@@ -13,7 +13,9 @@ import authStore from "@/app/store/authStore";
 import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
 import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
 import firebaseSignIn from "../../firebase/auth/signIn";
+
 import ContainedButton from "@/shared/ContainedButton";
+import OutlinedButton from "@/shared/OutlinedButton";
 
 interface AuthFormProps {
     isSignIn: boolean;
@@ -113,18 +115,21 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
 
                 {isSignIn ?
                     <>
-                        <Button variant="outlined" onClick={() => handleGoogleSignIn()} className="googleOAuthButton">
-                            <img src="/static/icons/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
-
-                            <p className="ml-[15px]">Continue with Google</p>
-                        </Button>
+                        <OutlinedButton
+                            styles={"mx-[15%] w-[70%] h-[50px]"}
+                            text={"Continue with Google"}
+                            handleFunction={handleGoogleSignIn}
+                        >
+                            <img src="/static/icons/GoogleIcon.svg" alt="Button: Sign In with Google" className="mr-[15px] w-[25px] h-[25px]"/>
+                        </OutlinedButton>
 
                         <ContainedButton
                             styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
                             text={"Continue with GitHub"}
                             handleFunction={handleGithubSignIn}
-                            children={<img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>}
-                        />
+                        >
+                            <img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>
+                        </ContainedButton>
                     </> :
                     <>
                         <TextField type="text" label="Enter Name and Surname" required={true} inputProps={{autoComplete: 'new-password'}}  error={!!errorNameText.length} helperText={errorNameText} onChange={(event) => handleNameChange(event)} className="authInputMUIField"/>
@@ -158,18 +163,21 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     </>
                     :
                     <>
-                        <Button variant="outlined" onClick={() => handleGoogleSignIn()} className="googleOAuthButton">
-                            <img src="/static/icons/GoogleIcon.svg" alt="Button: Sign In with Google" className="w-[25px] h-[25px]"/>
-
-                            <p className="ml-[15px]">Continue with Google</p>
-                        </Button>
+                        <OutlinedButton
+                            styles={"mx-[15%] w-[70%] h-[50px]"}
+                            text={"Continue with Google"}
+                            handleFunction={handleGoogleSignIn}
+                        >
+                            <img src="/static/icons/GoogleIcon.svg" alt="Button: Sign In with Google" className="mr-[15px] w-[25px] h-[25px]"/>
+                        </OutlinedButton>
 
                         <ContainedButton
                             styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
                             text={"Continue with GitHub"}
                             handleFunction={handleGithubSignIn}
-                            children={<img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>}
-                        />
+                        >
+                            <img src="/static/icons/GithubIcon.svg" alt="Button: Sign In with GitHub" className="ml-[-5px] mr-[15px] w-[25px] h-[30px]"/>
+                        </ContainedButton>
                     </>
                 }
 
