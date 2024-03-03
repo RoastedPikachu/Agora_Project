@@ -29,6 +29,10 @@ export const getCookie = (name: string) =>  {
     return null;
 }
 
+export const getCompanyId = () => {
+    return getCookie("companyId") as string;
+}
+
 export const getCompanyIdFromInviteCode = (inviteCode: string) => {
         const symbolIndex = inviteCode.indexOf("/");
 

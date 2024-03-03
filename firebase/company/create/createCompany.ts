@@ -14,7 +14,7 @@ export default async function firebaseCreateNewCompany(companyId:string, name: s
             companyName: name,
             companyAvatar: avatar,
             users: [initialUserEmail],
-            chats: []
+            chats: [{id: 1, name: "Important", isOpened: true, messages: []}, {id: 2, name: "Favourites", isOpened: false, messages: []}]
         })
 
         setCookie("companyId", companyId, 30);

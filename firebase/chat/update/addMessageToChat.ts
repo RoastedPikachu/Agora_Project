@@ -1,7 +1,7 @@
 import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
-import firebaseGetCompanyById from "../read/getCompany";
+import firebaseGetCompanyById from "../../company/read/getCompany";
 
 interface Message {
     id: number;

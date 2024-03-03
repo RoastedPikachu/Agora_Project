@@ -1,7 +1,7 @@
 import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
-import firebaseGetCompanyById from "../read/getCompany";
+import firebaseGetCompanyById from "../../company/read/getCompany";
 
 interface Message {
     id: number;
@@ -13,18 +13,21 @@ interface Message {
 interface Chat {
     id: number;
     name: string;
+    isOpened: boolean;
     messages: Message[];
 }
 
-export default async function firebaseAddChatToCompany(companyId: string | null, chat: string) {
+export default async function firebaseRemoveChatFromCompany(companyId: string | null, chatId: number) {
     let result = null;
     let error = null;
 
     try {
         const response = await firebaseGetCompanyById(companyId);
 
+        const companyChats = response?.val().chats;
+
         result = update(ref(database, "companies/" + companyId), {
-            chats: [...response?.val().chats, chat]
+            chats: companyChats.filter((chat:Chat) => chat.id !== chatId)
         })
     } catch (err:any) {
         error = err;

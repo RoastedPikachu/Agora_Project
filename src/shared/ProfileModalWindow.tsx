@@ -9,7 +9,7 @@ import firebaseGetUser from "../../firebase/user/read/getUser";
 
 import firebaseSetCompanyInviteCode from "../../firebase/company/update/addInviteCode";
 
-import {getCookie, handleImageLoad} from "@/lib/generalFunctions";
+import {getCompanyId, handleImageLoad} from "@/lib/generalFunctions";
 
 import authStore from "@/app/store/authStore";
 
@@ -58,11 +58,6 @@ const ProfileModalWindow = () => {
             .catch(e => {
                 console.log("Error during status change", e);
             })
-    }
-
-
-    const getCompanyId = () => {
-        return getCookie("companyId") as string;
     }
 
     const getUserName = async () => {
