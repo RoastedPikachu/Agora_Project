@@ -1,7 +1,7 @@
 "use client";
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import {useObserver, observer} from "mobx-react-lite";
+import {Observer, observer} from "mobx-react-lite";
 
 import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
 
@@ -11,7 +11,7 @@ import MessangerSidebar from "@/widgets/MessangerSidebar";
 import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
 
 const Page = observer(() => {
-    return useObserver(() => (
+    return <Observer>{() =>
         <>
             {modalWindowsStore.isInviteCodeModalOpened && <InviteCodeModalWindow/>}
             
@@ -43,7 +43,7 @@ const Page = observer(() => {
                 </section>
             </main>
         </>
-    ));
+    }</Observer>;
 });
 
 export default Page;
