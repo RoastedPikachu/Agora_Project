@@ -116,7 +116,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                 {isSignIn ?
                     <>
                         <OutlinedButton
-                            styles={"mx-[15%] w-[70%] h-[50px]"}
+                            styles={"mx-[15%] w-[70%] h-[50px] text-[#2076d2]"}
                             text={"Continue with Google"}
                             handleFunction={handleGoogleSignIn}
                         >
@@ -124,7 +124,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         </OutlinedButton>
 
                         <ContainedButton
-                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
+                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111] text-[#ffffff]"}
                             text={"Continue with GitHub"}
                             handleFunction={handleGithubSignIn}
                         >
@@ -139,7 +139,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         <TextField type="password" label="Enter password"  required={true} inputProps={{autoComplete: 'new-password'}} error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField"/>
 
                         <ContainedButton
-                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px] text-[#ffffff]"}
                             text={"Continue"}
                             handleFunction={handleSignUp}
                         />
@@ -156,7 +156,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         <TextField type="password" label="Insert password" required error={!!errorPasswordText.length} helperText={errorPasswordText} onChange={(event) => handlePasswordChange(event)} className="authInputMUIField mt-[10px]"/>
 
                         <ContainedButton
-                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                            styles={"mt-[10px] mx-[15%] w-[70%] h-[50px] text-[#ffffff]"}
                             text={"Sign in"}
                             handleFunction={handleSignIn}
                         />
@@ -164,7 +164,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                     :
                     <>
                         <OutlinedButton
-                            styles={"mx-[15%] w-[70%] h-[50px]"}
+                            styles={"mx-[15%] w-[70%] h-[50px] text-[#2076d2]"}
                             text={"Continue with Google"}
                             handleFunction={handleGoogleSignIn}
                         >
@@ -172,7 +172,7 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
                         </OutlinedButton>
 
                         <ContainedButton
-                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111]"}
+                            styles={"mx-[15%] w-[70%] h-[50px] !bg-[#000000] !hover:bg-[#111111] text-[#ffffff]"}
                             text={"Continue with GitHub"}
                             handleFunction={handleGithubSignIn}
                         >

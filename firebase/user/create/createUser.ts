@@ -7,6 +7,8 @@ export default async function firebaseCreateNewUser(userId: string, displayName:
     let error = null;
 
     try {
+        console.log(displayName);
+
         result = set(ref(database, "users/" + userId), {
             userId: userId,
             displayName: displayName,

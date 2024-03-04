@@ -30,7 +30,7 @@ const GreetingsBlock = () => {
                 <div className="flex items-center mt-[30px] pl-[30px] pr-[10px] w-[460px] h-[60px] bg-[#ffffff] rounded-[15px]">
                     <input type="text" placeholder="Enter your work email" onChange={(event) => setEmail(event.target.value)} className="w-[380px] h-full placeholder:text-[#4f7396] text-[1.125rem] outline-0"/>
 
-                    <ContainedButton styles={"w-[180px] h-[45px]"} text={"Get started"} handleFunction={goToSignUpPage}/>
+                    <ContainedButton styles={"w-[180px] h-[45px] text-[#ffffff]"} text={"Get started"} handleFunction={goToSignUpPage}/>
                 </div>
             </div>
         </section>

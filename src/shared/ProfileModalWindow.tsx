@@ -1,19 +1,22 @@
 "use client";
 import React, {useState, useEffect} from 'react';
 
+import {useRouter} from "next/navigation";      
+
 import {auth} from "../../firebase/config";
 
 import firebaseChangeUserStatus from "../../firebase/user/update/changeStatus";
 import firebaseChangeUserAvatar from "../../firebase/user/update/changeAvatar";
 import firebaseGetUser from "../../firebase/user/read/getUser";
 
-import firebaseSetCompanyInviteCode from "../../firebase/company/update/addInviteCode";
-
-import {getCompanyId, handleImageLoad} from "@/lib/generalFunctions";
+import {handleImageLoad} from "@/lib/generalFunctions";
 
 import authStore from "@/app/store/authStore";
+import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 const ProfileModalWindow = () => {
+    const router = useRouter();
+
     const [statuses, setStatuses] = useState([
         {
             id: 1,
@@ -66,15 +69,13 @@ const ProfileModalWindow = () => {
         setUserName(result?.val()?.displayName);
     }
 
-    const generateInviteCode = () => {
-        return crypto.randomUUID() + "/" + getCompanyId();
-    }
-
     const signOut = () => {
         auth.signOut()
             .then(() => {
                 authStore.signOut();
                 alert("Successful sign out");
+
+                router.push("/");
             })
             .catch(error => {
                 alert("Error signing out");
@@ -103,7 +104,7 @@ const ProfileModalWindow = () => {
 
             <button onClick={() => changeUserStatus(20)} className="mx-[25px] h-[50px] bg-transparent border-none text-[#4f7396] text-left font-medium">Set yourself as <b>not available</b></button>
 
-            <button onClick={() => firebaseSetCompanyInviteCode(getCompanyId(), generateInviteCode())} className="mx-[25px] h-[40px] bg-transparent border-none text-[#4f7396] text-left font-medium">Generate <b>invite code</b></button>
+            <button onClick={() => modalWindowsStore.changeInviteCodeModalOpened()} className="mx-[25px] h-[40px] bg-transparent border-none text-[#4f7396] text-left font-medium">Generate <b>invite code</b></button>
 
             {/* Next 2 html elements for user avatar change */}
 

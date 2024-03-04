@@ -1,12 +1,20 @@
-import React from 'react';
+"use client";
+import React, {useEffect} from 'react';
+
+import {useObserver, observer} from "mobx-react-lite";
 
 import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
 
-import MessangerSidebar from "@/widgets/MessangerSidebar";
+import modalWindowsStore from "@/app/store/modalWindowsStore";
 
-const Page = () => {
-    return (
+import MessangerSidebar from "@/widgets/MessangerSidebar";
+import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
+
+const Page = observer(() => {
+    return useObserver(() => (
         <>
+            {modalWindowsStore.isInviteCodeModalOpened && <InviteCodeModalWindow/>}
+            
             <TheMessangerPageHeader/>
 
             <main className='relative flex w-full h-auto'>
@@ -35,7 +43,7 @@ const Page = () => {
                 </section>
             </main>
         </>
-    );
-};
+    ));
+});
 
 export default Page;

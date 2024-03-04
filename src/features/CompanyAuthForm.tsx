@@ -43,13 +43,15 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
     const [companyAvatar, setCompanyAvatar] = useState("");
 
     const completeSignUp = () => {
+        let userName = authStore.name;
+
         if(companyName) {
             firebaseSignUp(authStore.email, authStore.password)
                 .then(() => {
                     const user = auth.currentUser;
 
                     Promise.all([
-                        firebaseCreateNewUser(user?.uid as string, authStore.name, user?.email as string, true),
+                        firebaseCreateNewUser(user?.uid as string, userName, user?.email as string, true),
                         firebaseCreateNewCompany(crypto.randomUUID(), companyName, companyAvatar, user?.email as string)
                     ])
                         .then(() => {
@@ -151,7 +153,7 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
             <TextField type="text" label={textFieldLabel} onChange={(event) => isCreateCompany ? setCompanyName(event.target.value) : setInviteCode(event.target.value)} className="authInputMUIField"/>
 
             <ContainedButton
-                styles={"mt-[10px] mx-[15%] w-[70%] h-[50px]"}
+                styles={"mt-[10px] mx-[15%] w-[70%] h-[50px] text-[#ffffff]"}
                 text={"Complete sign up"}
                 handleFunction={completeSignUp}/>
         </form>

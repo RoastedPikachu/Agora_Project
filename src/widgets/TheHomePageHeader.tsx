@@ -16,11 +16,11 @@ const TheHomePageHeader = () => {
 
            <nav className="relative flex items-center w-[270px] h-[40px]">
                <Link href="/signUp" className="h-full">
-                   <ContainedButton styles={"w-[120px] h-full"} text={"Sign Up"}/>
+                   <ContainedButton styles={"w-[120px] h-full text-[#ffffff]"} text={"Sign Up"}/>
                </Link>
 
                <Link href="/signIn" className="h-full">
-                   <ContainedButton styles={"ml-[30px] w-[120px] h-full bg-[#e5e8eb] hover:bg-[#e5e8eb] text-[#0d1410]"} text={"Sign in"}/>
+                   <ContainedButton styles={"ml-[30px] w-[120px] h-full bg-[#e5e8eb] hover:bg-[#e5e8eb] text-[#0d141c]"} text={"Sign in"}/>
                </Link>
            </nav>
         </header>
