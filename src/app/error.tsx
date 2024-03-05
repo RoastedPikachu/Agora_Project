@@ -17,7 +17,7 @@ const Error = () => {
     }
     
     return (
-        <main className="relative grid justify-items-center grid-rows-7 grid-cols-1 gap-y-[25px] mt-[195px] mx-[calc((100%-1440px)/2)] w-full max-w-[1440px] h-auto max-h-[875px]">
+        <main className="relative flex justify-center items-center mx-[calc((100%-1440px)/2)] w-full max-w-[1440px] h-screen">
             <div className="relative grid justify-items-center grid-rows-6 grid-cols-1 gap-y-[10px] w-auto h-auto">
                 <h1 className="row-span-3 text-[#2076d2] text-[10rem] text-center font-['Space_Grotesk'] font-bold">OOOps!</h1>
 

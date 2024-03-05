@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeAutoObservable} from "mobx";
 
 class ModalWindowsStore {
     isInviteCodeModalOpened = false;
@@ -7,7 +7,7 @@ class ModalWindowsStore {
         makeAutoObservable(this);
     }
 
-    changeInviteCodeModalOpened()  {
+    @action changeInviteCodeModalOpened()  {
         this.isInviteCodeModalOpened = !this.isInviteCodeModalOpened;
     }
 }

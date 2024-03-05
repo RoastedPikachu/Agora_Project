@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeAutoObservable} from "mobx";
 
 import firebaseGetChatsFromCompany from "../../../firebase/chat/read/getChats";
 
@@ -24,7 +24,6 @@ class ModalWindowsStore {
 
     constructor() {
         makeAutoObservable(this);
-
         this.getChats();
     }
 
@@ -32,7 +31,7 @@ class ModalWindowsStore {
         this.chats = this.chats.map((chat) => chat.id === targetId ? {...chat, isOpened: true} : {...chat, isOpened: false});
     }
 
-    async getChats() {
+    @action async getChats() {
         this.isLoading = true;
 
         try {

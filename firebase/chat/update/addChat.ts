@@ -19,19 +19,21 @@ interface Chat {
 
 export default async function firebaseAddChatToCompany(companyId: string | null, chat: Chat) {
     let result = null;
-    let error = null;
 
     try {
         const response = await firebaseGetCompanyById(companyId);
 
         const companyChats = response?.val().chats;
 
+        console.log(companyChats);
+        console.log(chat);
+
         result = update(ref(database, "companies/" + companyId), {
-            chats: [companyChats, chat]
-        })
+            chats: [...companyChats, chat]
+        });
     } catch (err:any) {
-        error = err;
+        console.error("Error during addChat request:", err);
     }
 
-    return {result, error};
+    return result;
 }

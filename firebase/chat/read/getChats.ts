@@ -1,16 +1,16 @@
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
 export default async function firebaseGetChatsFromCompany(companyId: string | null) {
-    let result = null;
-    let error = null;
+    let chats = null;
 
     try {
+        // TODO: Fix first chats render
         const response = await firebaseGetCompanyById(companyId);
 
-        return response?.val().chats;
+        chats = response?.val().chats;
     } catch (err:any) {
-        error = err;
+        console.error("Error during getChats request:", err);
     }
 
-    return {result, error};
+    return chats;
 }
