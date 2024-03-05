@@ -25,9 +25,6 @@ export default async function firebaseAddChatToCompany(companyId: string | null,
 
         const companyChats = response?.val().chats;
 
-        console.log(companyChats);
-        console.log(chat);
-
         result = update(ref(database, "companies/" + companyId), {
             chats: [...companyChats, chat]
         });

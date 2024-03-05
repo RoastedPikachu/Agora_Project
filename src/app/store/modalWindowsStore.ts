@@ -2,6 +2,7 @@ import {action, makeAutoObservable} from "mobx";
 
 class ModalWindowsStore {
     isInviteCodeModalOpened = false;
+    isNewChatModalOpened = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -9,6 +10,10 @@ class ModalWindowsStore {
 
     @action changeInviteCodeModalOpened()  {
         this.isInviteCodeModalOpened = !this.isInviteCodeModalOpened;
+    }
+
+    @action changeNewChatModalOpened() {
+        this.isNewChatModalOpened = !this.isNewChatModalOpened;
     }
 }
 

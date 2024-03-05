@@ -3,17 +3,20 @@ import React from 'react';
 
 import {Observer, observer} from "mobx-react-lite";
 
-import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
-
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import MessangerSidebar from "@/widgets/MessangerSidebar";
+import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
+
 import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
+import NewChatModalWindow from "@/shared/NewChatModalWindow";
 
 const Page = observer(() => {
     return <Observer>{() =>
         <>
             {modalWindowsStore.isInviteCodeModalOpened && <InviteCodeModalWindow/>}
+
+            {modalWindowsStore.isNewChatModalOpened && <NewChatModalWindow/>}
             
             <TheMessangerPageHeader/>
 

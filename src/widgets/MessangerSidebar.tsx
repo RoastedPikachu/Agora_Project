@@ -7,22 +7,9 @@ import firebaseAddChatToCompany from "../../firebase/chat/update/addChat";
 
 import chatsStore from "@/app/store/chatsStore";
 import {getCompanyId} from "@/lib/generalFunctions";
+import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 const MessangerSidebar = observer(() => {
-
-    const createNewChat = () => {
-        // TODO: Change chat creation system to modal window
-        const chatName = prompt("Enter chat name") as string;
-
-        const newChat = {
-            id: chatsStore.chats[chatsStore.chats.length - 1].id + 1,
-            name: chatName,
-            isOpened: false,
-            messages: []
-        }
-
-        firebaseAddChatToCompany(getCompanyId(), newChat);
-    }
 
     return <Observer>{() =>
         <aside className="relative px-[50px] py-[30px] w-[25%] max-w-[510px] h-[calc(100vh-65px)] border-r-2 border-[#e5e8eb]">
@@ -40,10 +27,10 @@ const MessangerSidebar = observer(() => {
                     </button>
                 ))}
 
-                <button onClick={() => createNewChat()} className="flex items-center px-[20px] h-[50px]">
+                <button onClick={() => modalWindowsStore.changeNewChatModalOpened()} className="flex items-center px-[20px] h-[50px]">
                     <img src="/static/messangerPage/icons/AddIcon.svg" alt="" className="w-[25px] h-[25px]"/>
 
-                    <p className="ml-[20px] text-[#0d141c] text-[1.375rem] text-left font-semibold">Add new Chat</p>
+                    <p className="ml-[20px] text-[#2076d2] text-[1.375rem] text-left font-semibold">Add new Chat</p>
                 </button>
             </div>
         </aside>
