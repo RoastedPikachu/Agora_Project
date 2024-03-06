@@ -10,9 +10,7 @@ import TextField from "@mui/material/TextField";
 
 import authStore from "@/app/store/authStore";
 
-import {signInWithGooglePopup} from "../../firebase/auth/googleSignIn";
-import {signInWithGithubPopup} from "../../firebase/auth/gitHubSignIn";
-import firebaseSignIn from "../../firebase/auth/signIn";
+import makeFirebaseRequest from "../../firebase/endpoints";
 
 import ContainedButton from "@/shared/ContainedButton";
 import OutlinedButton from "@/shared/OutlinedButton";
@@ -67,21 +65,17 @@ const AuthForm:React.FC<AuthFormProps> = ({isSignIn, authHeader, authDescription
         }
     }
 
-    const handleGoogleSignIn = async () => {
-        const result = await signInWithGooglePopup();
-
-        console.log(result);
+    const handleGoogleSignIn = () => {
+        makeFirebaseRequest("auth/googleSignIn", {});
     }
 
-    const handleGithubSignIn = async () => {
-        const result = await signInWithGithubPopup();
-
-        console.log(result);
+    const handleGithubSignIn = () => {
+        makeFirebaseRequest("auth/gitHubSignIn", {});
     }
 
     const handleSignIn = async () => {
         if(checkDataValidity()) {
-            let result = await firebaseSignIn(email, password);
+            let result = makeFirebaseRequest("auth/signIn", {email: email, password: password});
 
             console.log(result);
 

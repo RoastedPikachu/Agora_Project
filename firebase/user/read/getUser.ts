@@ -2,15 +2,16 @@ import {ref, get} from "firebase/database";
 
 import {database} from "../../config";
 
-export default async function firebaseGetUser(userId: string) {
-    let result = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
+export default async function getUser(userId: string) {
     try {
-        result = get(ref(database, "users/" + userId))
-    } catch (err:any) {
-        error = err;
-    }
+        const response = await get(ref(database, "users/" + userId));
 
-    return result;
+        handleFirebaseSuccess("Successful user receiving");
+
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during user receiving: ", error);
+    }
 }

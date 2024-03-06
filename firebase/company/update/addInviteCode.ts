@@ -2,17 +2,18 @@ import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
 
-export default async function firebaseSetCompanyInviteCode(companyId: string, inviteCode: string) {
-    let response = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
+export default async function setCompanyInviteCode(companyId: string, inviteCode: string) {
     try {
-        response = update(ref(database, "companies/" + companyId), {
+        const response = await update(ref(database, "companies/" + companyId), {
             inviteCode: inviteCode
         });
-    } catch (err:any) {
-        error = err;
-    }
 
-    return {response, error};
+        handleFirebaseSuccess("Successful company invite code addition");
+
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during company invite code addition: ", error);
+    }
 }

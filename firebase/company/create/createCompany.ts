@@ -1,26 +1,39 @@
 import {ref, set} from "firebase/database";
 
 import {database} from "../../config";
-import {setCookie} from "@/lib/generalFunctions";
 
-export default async function firebaseCreateNewCompany(companyId:string, name: string, avatar: string, initialUserEmail: string) {
-    let result = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError, setCookie} from "@/lib/generalFunctions";
 
+export default async function createNewCompany(companyId:string, name: string, avatar: string, initialUserEmail: string) {
     try {
-        result = set(ref(database, "companies/" + companyId), {
+        const response = await set(ref(database, "companies/" + companyId), {
             companyId: companyId,
             inviteCode: null,
             companyName: name,
             companyAvatar: avatar,
             users: [initialUserEmail],
-            chats: [{id: 1, name: "Important", isOpened: true, messages: []}, {id: 2, name: "Favourites", isOpened: false, messages: []}]
+            chats: [
+                {
+                    id: 1,
+                    name: "Important",
+                    isOpened: true,
+                    messages: []
+                },
+                {
+                    id: 2, 
+                    name: "Favourites",
+                    isOpened: false,
+                    messages: []
+                }
+            ]
         })
 
         setCookie("companyId", companyId, 30);
-    } catch (err:any) {
-        error = err;
-    }
 
-    return {result, error};
+        handleFirebaseSuccess("Successful company creation");
+
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during company creation: ", error);
+    }
 }

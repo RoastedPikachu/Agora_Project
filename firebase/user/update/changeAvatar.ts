@@ -2,17 +2,18 @@ import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
 
-export default async function firebaseChangeUserAvatar(userId: string, avatarPath: string) {
-    let result = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
+export default async function changeUserAvatar(userId: string, avatarPath: string) {
     try {
-        result = update(ref(database, "users/" + userId), {
+        const response = await update(ref(database, "users/" + userId), {
             userAvatar: avatarPath
-        })
-    } catch (err:any) {
-        error = err;
-    }
+        });
 
-    return {result, error};
+        handleFirebaseSuccess("Successful user avatar change");
+
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during user avatar change: ", error);
+    }
 }

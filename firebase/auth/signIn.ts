@@ -2,15 +2,16 @@ import {signInWithEmailAndPassword} from "@firebase/auth";
 
 import {auth} from "../config";
 
-export default async function firebaseSignIn(email: string, password: string) {
-    let result = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
+export default async function signIn(email: string, password: string) {
     try {
-        result = await signInWithEmailAndPassword(auth, email, password);
-    } catch (err:any) {
-        error = err;
-    }
+        const response = await signInWithEmailAndPassword(auth, email, password);
 
-    return {result, error};
+        handleFirebaseSuccess("Successful sign in");
+
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during credentials authentication: ", error);
+    }
 }

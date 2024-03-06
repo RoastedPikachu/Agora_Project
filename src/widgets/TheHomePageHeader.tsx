@@ -2,7 +2,6 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import Button from "@mui/material/Button";
 import ContainedButton from "@/shared/ContainedButton";
 
 const TheHomePageHeader = () => {

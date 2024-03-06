@@ -3,14 +3,10 @@ import React from 'react';
 
 import {Observer, observer} from "mobx-react-lite";
 
-import firebaseAddChatToCompany from "../../firebase/chat/update/addChat";
-
 import chatsStore from "@/app/store/chatsStore";
-import {getCompanyId} from "@/lib/generalFunctions";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 const MessangerSidebar = observer(() => {
-
     return <Observer>{() =>
         <aside className="relative px-[50px] py-[30px] w-[25%] max-w-[510px] h-[calc(100vh-65px)] border-r-2 border-[#e5e8eb]">
             <div className="grid justify-items-start grid-rows-[6] grid-cols-1 gap-y-[15px] h-auto">

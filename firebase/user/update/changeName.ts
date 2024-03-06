@@ -2,17 +2,18 @@ import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
 
-export default async function firebaseChangeUserName(userId: string, displayName: string) {
-    let result = null;
-    let error = null;
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
+export default async function changeUserName(userId: string, displayName: string) {
     try {
-        result = update(ref(database, "users/" + userId), {
+        const response = await update(ref(database, "users/" + userId), {
             displayName: displayName
-        })
-    } catch (err:any) {
-        error = err;
-    }
+        });
+        
+        handleFirebaseSuccess("Successful user name change");
 
-    return {result, error};
+        return response;
+    } catch (error: any) {
+        handleFirebaseError("Error during user name change: ", error);
+    }
 }

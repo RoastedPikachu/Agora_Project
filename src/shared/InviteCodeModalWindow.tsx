@@ -1,12 +1,13 @@
 "use client";
 import React, {useState, useEffect} from 'react';
 
-import firebaseSetCompanyInviteCode from "../../firebase/company/update/addInviteCode";
+import makeFirebaseRequest from "../../firebase/endpoints";
+
+import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import {getCompanyId} from "@/lib/generalFunctions";
 
 import ContainedButton from "@/shared/ContainedButton";
-import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 const InviteCodeModalWindow = () => {
     const [inviteCode, setInviteCode] = useState("");
@@ -16,7 +17,7 @@ const InviteCodeModalWindow = () => {
     }
 
     useEffect(() => {
-        firebaseSetCompanyInviteCode(getCompanyId(), inviteCode);
+        makeFirebaseRequest("company/update/inviteCode", {companyId: getCompanyId(), inviteCode: inviteCode});
     }, [inviteCode]);
 
     const copyCodeToClipboard = () => {

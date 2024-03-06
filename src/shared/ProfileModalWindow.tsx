@@ -1,18 +1,20 @@
 "use client";
 import React, {useState, useEffect} from 'react';
 
-import {useRouter} from "next/navigation";      
+import {useRouter} from "next/navigation";
+
+import firebase from "firebase/compat";
 
 import {auth} from "../../firebase/config";
 
-import firebaseChangeUserStatus from "../../firebase/user/update/changeStatus";
-import firebaseChangeUserAvatar from "../../firebase/user/update/changeAvatar";
-import firebaseGetUser from "../../firebase/user/read/getUser";
+import makeFirebaseRequest from "../../firebase/endpoints";
 
-import {handleImageLoad} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError, handleImageLoad} from "@/lib/generalFunctions";
 
 import authStore from "@/app/store/authStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
+
+import DataSnapshot = firebase.database.DataSnapshot;
 
 const ProfileModalWindow = () => {
     const router = useRouter();
@@ -44,41 +46,30 @@ const ProfileModalWindow = () => {
     const [userName, setUserName] = useState("");
 
     const changeUserAvatar = (imagePath: string) => {
-        firebaseChangeUserAvatar(auth.currentUser?.uid as string, imagePath)
-            .then(() => {
-                console.log("Successful avatar change");
-            })
-            .catch(e => {
-                console.log("Error during avatar change", e);
-            })
+        makeFirebaseRequest("user/update/avatar", {userId: auth.currentUser?.uid, avatarPath: imagePath});
     }
 
     const changeUserStatus = (statusCode: number) => {
-        firebaseChangeUserStatus(auth.currentUser?.uid as string, statusCode)
-            .then(() => {
-                console.log("Successful status change");
-            })
-            .catch(e => {
-                console.log("Error during status change", e);
-            })
+        makeFirebaseRequest("user/update/status", {userId: auth.currentUser?.uid, statusCode: statusCode});
     }
 
     const getUserName = async () => {
-        const result = await firebaseGetUser(auth.currentUser?.uid as string);
+        const result = await makeFirebaseRequest("user/get", {userId: auth.currentUser?.uid}) as unknown as DataSnapshot;
 
-        setUserName(result?.val()?.displayName);
+        setUserName(result.val().displayName);
     }
 
     const signOut = () => {
         auth.signOut()
             .then(() => {
                 authStore.signOut();
-                alert("Successful sign out");
+                
+                handleFirebaseSuccess("Successful sign out");
 
                 router.push("/");
             })
-            .catch(error => {
-                alert("Error signing out");
+            .catch((error: any) => {
+                handleFirebaseError("Error during sign out: ", error);
             })
     }
 

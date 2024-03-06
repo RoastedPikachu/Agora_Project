@@ -29,21 +29,29 @@ export const getCookie = (name: string) =>  {
     return null;
 }
 
+export const handleFirebaseSuccess = (successText: string) => {
+     console.log(successText);
+}
+
+export const handleFirebaseError = (error: any, errorText: string) => {
+   console.error(errorText, error);
+}
+
 export const getCompanyId = () => {
     return getCookie("companyId") as string;
 }
 
 export const getCompanyIdFromInviteCode = (inviteCode: string) => {
-        const symbolIndex = inviteCode.indexOf("/");
+        const symbolIndex = inviteCode.indexOf("_"); // Разделитель между инвайт кодом и id компании
 
         if (symbolIndex !== -1) {
-            const companyIdString = inviteCode.substring(symbolIndex + 1).match(/^\d+/);
+            const companyId = inviteCode.substring(symbolIndex + 1).match(/^\d+/);
 
-            if (companyIdString) {
-                return companyIdString[0];
+            if (companyId) {
+                return companyId[0];
             }
         }
 
-        return null; // Return null if companyId is not found
+        return null;
 }
 
