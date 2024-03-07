@@ -4,14 +4,14 @@ import {auth} from "../config";
 
 import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
-export default async function signIn(email: string, password: string) {
-    try {
-        const response = await signInWithEmailAndPassword(auth, email, password);
+export default function signIn(email: string, password: string) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+            handleFirebaseSuccess("Successful sign in");
 
-        handleFirebaseSuccess("Successful sign in");
-
-        return response;
-    } catch (error: any) {
-        handleFirebaseError("Error during credentials authentication: ", error);
-    }
+            return res;
+        })
+        .catch((err: Error) => {
+            handleFirebaseError("Error during credentials authentication: ", err);
+        });
 }

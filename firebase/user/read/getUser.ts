@@ -4,14 +4,14 @@ import {database} from "../../config";
 
 import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
-export default async function getUser(userId: string) {
-    try {
-        const response = await get(ref(database, "users/" + userId));
+export default function getUser(userId: string) {
+    get(ref(database, "users/" + userId))
+        .then((res) => {
+            handleFirebaseSuccess("Successful user receiving");
 
-        handleFirebaseSuccess("Successful user receiving");
-
-        return response;
-    } catch (error: any) {
-        handleFirebaseError("Error during user receiving: ", error);
-    }
+            return res;
+        })
+        .catch((err: Error) => {
+            handleFirebaseError("Error during user receiving: ", err);
+        });
 }

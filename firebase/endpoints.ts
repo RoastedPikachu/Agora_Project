@@ -15,6 +15,13 @@ import createNewCompany from "./company/create/createCompany";
 import addUserToCompany from "./company/update/addUserToCompany";
 import setCompanyInviteCode from "./company/update/addInviteCode";
 
+import addChatToCompany from "./chat/update/addChat";
+import getChatsFromCompany from "./chat/read/getChats";
+import removeChatFromCompany from "./chat/delete/deleteChat";
+import addMessageToChat from "./chat/update/addMessageToChat";
+
+import {Chat, Message} from "@/lib/generalInterfaces";
+
 interface FirebaseAuthRequestBody {
     email: string;
     password: string;
@@ -38,7 +45,14 @@ interface FirebaseCompanyRequestBody {
    userEmail?: string;
 }
 
-type RequestBodyInterface = FirebaseAuthRequestBody | FirebaseUserRequestBody | FirebaseCompanyRequestBody | {};
+interface FirebaseChatRequestBody {
+    companyId: string;
+    chatId?: number;
+    chat?: Chat;
+    message?: Message;
+}
+
+type RequestBodyInterface = FirebaseAuthRequestBody | FirebaseUserRequestBody | FirebaseCompanyRequestBody | FirebaseChatRequestBody | {};
 
 const isFirebaseAuthBody = (body: RequestBodyInterface): body is FirebaseAuthRequestBody => {
     return 'email' in body && 'password' in body;
@@ -47,6 +61,8 @@ const isFirebaseAuthBody = (body: RequestBodyInterface): body is FirebaseAuthReq
 const isFirebaseUserBody = (body: RequestBodyInterface): body is FirebaseUserRequestBody => {
     return "userId" in body;
 }
+
+// Эта функция также используется для чатов, потому что все действия в них и с ними привязаны к компании
 
 const isFirebaseCompanyBody = (body: RequestBodyInterface): body is FirebaseCompanyRequestBody => {
     return "companyId" in body;
@@ -59,12 +75,12 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "auth/signIn":
             if(isFirebaseAuthBody(body)) {
-                return signIn(body.email, body.password);
+                signIn(body.email, body.password);
             }
             break;
         case "auth/signUp":
             if(isFirebaseAuthBody(body)) {
-                return signUp(body.email, body.password);
+                signUp(body.email, body.password);
             }
             break;
         case "auth/gitHubSignIn":
@@ -75,7 +91,7 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "user/create":
             if(isFirebaseUserBody(body) && "displayName" in body && "email" in body && "isCompanyOwner" in body) {
-                return createNewUser(body.userId, body.displayName!, body.email!, body.isCompanyOwner!);
+                createNewUser(body.userId, body.displayName!, body.email!, body.isCompanyOwner!);
             }
             break;
         case "user/get":
@@ -85,23 +101,22 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "user/update/avatar":
             if(isFirebaseUserBody(body) && "avatarPath" in body) {
-                return changeUserAvatar(body.userId, body.avatarPath!);
+                changeUserAvatar(body.userId, body.avatarPath!);
             }
             break;
         case "user/update/name":
             if(isFirebaseUserBody(body) && "displayName" in body) {
-                return changeUserName(body.userId, body.displayName!);
+                changeUserName(body.userId, body.displayName!);
             }
             break;
         case "user/update/status":
             if(isFirebaseUserBody(body) && "statusCode" in body) {
-                return changeUserStatus(body.userId, body.statusCode!);
+                changeUserStatus(body.userId, body.statusCode!);
             }
             break;
         case "company/create":
-            // Здесь был баг с Property doesn't exist on type never, поэтому доступ к свойствам сделан таким образом
             if(isFirebaseCompanyBody(body) && "name" in body && "avatar" in body && "initialUserEmail" in body) {
-                return createNewCompany(body["companyId"], body["name"], body["avatar"], body["initialUserEmail"]);
+                createNewCompany(body.companyId, body.name!, body.avatarPath!, body.initialUserEmail!);
             }
             break;
         case "company/get":
@@ -111,12 +126,32 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "company/update/inviteCode":
             if(isFirebaseCompanyBody(body) && "inviteCode" in body) {
-                return setCompanyInviteCode(body.companyId, body.inviteCode!);
+                setCompanyInviteCode(body.companyId, body.inviteCode!);
             }
             break;
         case "company/update/user":
             if(isFirebaseCompanyBody(body) && "userEmail" in body) {
-                return addUserToCompany(body.companyId, body.userEmail!);
+                addUserToCompany(body.companyId, body.userEmail!);
+            }
+            break;
+        case "chats/get":
+            if(isFirebaseCompanyBody(body)) {
+                return getChatsFromCompany(body.companyId);
+            }
+            break;
+        case "chats/update/chat":
+            if(isFirebaseCompanyBody(body) && "chat" in body) {
+                addChatToCompany(body.companyId, body.chat as Chat);
+            }
+            break;
+        case "chats/update/message":
+            if(isFirebaseCompanyBody(body) && "chatId" in body && "message" in body) {
+                addMessageToChat(body.companyId, body.chatId as number, body.message as Message);
+            }
+            break;
+        case "chats/delete/chat":
+            if(isFirebaseCompanyBody(body) && "chatId" in body) {
+                removeChatFromCompany(body.companyId, body.chatId as number);
             }
             break;
     }

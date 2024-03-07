@@ -33,8 +33,8 @@ export const handleFirebaseSuccess = (successText: string) => {
      console.log(successText);
 }
 
-export const handleFirebaseError = (error: any, errorText: string) => {
-   console.error(errorText, error);
+export const handleFirebaseError = (errorText: string, error: any) => {
+   console.error(errorText, error.message);
 }
 
 export const getCompanyId = () => {

@@ -4,16 +4,14 @@ import {database} from "../../config";
 
 import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
-export default async function setCompanyInviteCode(companyId: string, inviteCode: string) {
-    try {
-        const response = await update(ref(database, "companies/" + companyId), {
+export default function setCompanyInviteCode(companyId: string, inviteCode: string) {
+        update(ref(database, "companies/" + companyId), {
             inviteCode: inviteCode
-        });
-
-        handleFirebaseSuccess("Successful company invite code addition");
-
-        return response;
-    } catch (error: any) {
-        handleFirebaseError("Error during company invite code addition: ", error);
-    }
+        })
+            .then(() => {
+                handleFirebaseSuccess("Successful company invite code addition");
+            })
+            .catch((err: Error) => {
+                handleFirebaseError("Error during company invite code addition: ", err);
+            });
 }

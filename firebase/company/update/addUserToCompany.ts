@@ -6,18 +6,16 @@ import firebaseGetCompanyById from "../read/getCompany";
 
 import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
-export default async function addUserToCompany(companyId: string, userEmail: string) {
-    try {
-        const company = await firebaseGetCompanyById(companyId);
+export default function addUserToCompany(companyId: string, userEmail: string) {
+    const company = firebaseGetCompanyById(companyId);
 
-        const response = await update(ref(database, "companies/" + companyId), {
-            users: [...company?.val().users, userEmail]
+    update(ref(database, "companies/" + companyId), {
+        users: [...company?.val().users, userEmail]
+    })
+        .then(() => {
+            handleFirebaseSuccess("Successful user addition");
+        })
+        .catch((err: Error) => {
+            handleFirebaseError("Error during user addition: ", err);
         });
-
-        handleFirebaseSuccess("Successful user addition");
-
-        return response;
-    } catch (error: any) {
-        handleFirebaseError("Error during user addition: ", error);
-    }
 }

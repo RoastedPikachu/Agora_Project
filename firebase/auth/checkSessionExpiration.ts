@@ -14,8 +14,8 @@ export default function checkSessionExpiration() {
             .then(() => {
                 handleFirebaseSuccess("User signed out");
             })
-            .catch((error) => {
-                handleFirebaseError("Error signing out user: ", error);
+            .catch((err: Error) => {
+                handleFirebaseError("Error signing out user: ", err);
             });
     }
 }

@@ -3,14 +3,15 @@ import React, {useState} from 'react';
 
 import TextField from "@mui/material/TextField";
 
-import firebaseAddChatToCompany from "../../firebase/chat/update/addChat";
+import makeFirebaseRequest from "../../firebase/endpoints";
+
+import chatsStore from "@/app/store/chatsStore";
 
 import {getCompanyId} from "@/lib/generalFunctions";
 
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import ContainedButton from "@/shared/ContainedButton";
-import chatsStore from "@/app/store/chatsStore";
 
 const NewChatModalWindow = () => {
     const [chatName, setChatName] = useState("");
@@ -23,10 +24,9 @@ const NewChatModalWindow = () => {
             messages: []
         }
 
-        firebaseAddChatToCompany(getCompanyId(), newChat)
-            .then(() => {
-                modalWindowsStore.changeNewChatModalOpened();
-            })
+        makeFirebaseRequest("chats/update/chat", {companyId: getCompanyId(), chat: newChat});
+
+        modalWindowsStore.changeNewChatModalOpened();
     }
 
     // TODO: Добавить модалку с сообщением об успешном добавлении чата и затемнять экран с модалкой

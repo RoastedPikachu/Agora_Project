@@ -1,7 +1,10 @@
 import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
+
 import firebaseGetCompanyById from "../../company/read/getCompany";
+
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
 interface Message {
     id: number;
@@ -17,21 +20,18 @@ interface Chat {
     messages: Message[];
 }
 
-export default async function firebaseRemoveChatFromCompany(companyId: string | null, chatId: number) {
-    let result = null;
-    let error = null;
+export default function removeChatFromCompany(companyId: string, chatId: number) {
+    const company = firebaseGetCompanyById(companyId);
 
-    try {
-        const response = await firebaseGetCompanyById(companyId);
+    const companyChats = company?.val().chats;
 
-        const companyChats = response?.val().chats;
-
-        result = update(ref(database, "companies/" + companyId), {
-            chats: companyChats.filter((chat:Chat) => chat.id !== chatId)
+    update(ref(database, "companies/" + companyId), {
+        chats: companyChats.filter((chat:Chat) => chat.id !== chatId)
+    })
+        .then(res => {
+            handleFirebaseSuccess("Successful chat deletion");
         })
-    } catch (err:any) {
-        error = err;
-    }
-
-    return {result, error};
+        .catch((err: Error) => {
+            handleFirebaseError("Error during chat deletion: ", err);
+        });
 }

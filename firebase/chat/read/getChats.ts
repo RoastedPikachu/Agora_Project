@@ -1,16 +1,10 @@
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
-export default async function firebaseGetChatsFromCompany(companyId: string | null) {
-    let chats = null;
+export default function getChatsFromCompany(companyId: string) {
+    // TODO: Fix first chats render
+    const company = firebaseGetCompanyById(companyId);
 
-    try {
-        // TODO: Fix first chats render
-        const response = await firebaseGetCompanyById(companyId);
+    // Здесь нет проверок в виду того, что у каждой компании есть как минимум 2 чата => ошибка будет только если мы не получим компанию
 
-        chats = response?.val().chats;
-    } catch (err:any) {
-        console.error("Error during getChats request:", err);
-    }
-
-    return chats;
+    return company?.val().chats;
 }

@@ -13,7 +13,7 @@ export const signInWithGooglePopup = () => {
         .then(() => {
             handleFirebaseSuccess("Successful sign in with Google");
         })
-        .catch((error) => {
-            handleFirebaseError("Error during Google authentication: ", error);
+        .catch((err: Error) => {
+            handleFirebaseError("Error during Google authentication: ", err);
         })
 }

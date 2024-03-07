@@ -5,11 +5,9 @@ import {useRouter} from 'next/navigation';
 
 import TextField from "@mui/material/TextField";
 
-import firebase from "firebase/compat";
+import firebase from "firebase/compat/app";
 
 import {auth} from "../../firebase/config";
-
-import firebaseCheckSessionExpiration from "../../firebase/auth/checkSessionExpiration";
 
 import makeFirebaseRequest from "../../firebase/endpoints";
 
@@ -46,61 +44,44 @@ const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
 
     const [companyAvatar, setCompanyAvatar] = useState("");
 
-    const completeSignUp = () => {
-        let userName = authStore.name;
+    const completeSignUp = async () => {
+        const user = auth.currentUser!;
+        const userName = authStore.name;
 
-        makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password})
+        if(inviteCode) {
+            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password});
 
-        if(companyName) {
-            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password})!
+            const company = await makeFirebaseRequest("company/get", {companyId: getCompanyIdFromInviteCode(inviteCode)}) as unknown as DataSnapshot;
+
+            Promise.all([
+                makeFirebaseRequest("user/update/name", {userId: user.uid, displayName: authStore.name}),
+                makeFirebaseRequest("company/update/user", {companyId: company.val().companyId, userEmail: user.email}),
+                makeFirebaseRequest("user/create", {userId: user.uid, displayName: authStore.name, email: user.email, isCompanyOwner: true})
+            ])
                 .then(() => {
-                    const user = auth.currentUser!;
-
-                    Promise.all([
-                        makeFirebaseRequest("user/create", {userId: user.uid, displayName: userName, email: user.email!, isCompanyOwner: true}),
-                        makeFirebaseRequest("company/create", {companyId: crypto.randomUUID(), name: companyName, companyAvatar: companyAvatar, initialUserEmail: user.email!})
-                    ])
-                        .then(() => {
-                            authStore.signUp();
-
-                            handleFirebaseSuccess("Successfull company and user creation");
-
-                            setInterval(() => {
-                                if (auth.currentUser) {
-                                    firebaseCheckSessionExpiration();
-                                }
-                            }, 3600000);
-                        })
-                        .catch((error: any) => {
-                            handleFirebaseError("Error during user or company creation: ", error);
-                        });
+                    setInterval(() => {
+                        if (auth.currentUser) {
+                            makeFirebaseRequest("auth/checkSession", {});
+                        }
+                    }, 3600000);
                 });
         }
 
-        if(inviteCode) {
-            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password})!
-                .then(async () => {
-                    const user = auth.currentUser!;
+        if(companyName) {
+            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password});
 
-                    const result = await makeFirebaseRequest("company/get", {companyId: getCompanyIdFromInviteCode(inviteCode)}) as unknown as DataSnapshot;
+            Promise.all([
+                makeFirebaseRequest("user/create", {userId: user.uid, displayName: userName, email: user.email!, isCompanyOwner: true}),
+                makeFirebaseRequest("company/create", {companyId: crypto.randomUUID(), name: companyName, companyAvatar: companyAvatar, initialUserEmail: user.email!})
+            ])
+                .then(() => {
+                    authStore.signUp();
 
-                    Promise.all([
-                        makeFirebaseRequest("user/update/name", {userId: user.uid, displayName: authStore.name}),
-                        makeFirebaseRequest("company/update/user", {companyId: result.val().companyId, userEmail: user.email}),
-                        makeFirebaseRequest("user/create", {userId: user.uid, displayName: authStore.name, email: user.email, isCompanyOwner: true})
-                    ])
-                        .then(() => {
-                            handleFirebaseSuccess("Successful user creation and company receiving");
-
-                            setInterval(() => {
-                                if (auth.currentUser) {
-                                    makeFirebaseRequest("auth/checkSession", {});
-                                }
-                            }, 3600000);
-                        })
-                        .catch((error: any) => {
-                            handleFirebaseError("Error during user creation and company receiving: ", error);
-                        });
+                    setInterval(() => {
+                        if (auth.currentUser) {
+                            makeFirebaseRequest("auth/checkSession", {});
+                        }
+                    }, 3600000);
                 });
         }
 

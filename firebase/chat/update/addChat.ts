@@ -1,7 +1,10 @@
 import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
+
 import firebaseGetCompanyById from "../../company/read/getCompany";
+
+import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
 interface Message {
     id: number;
@@ -17,20 +20,18 @@ interface Chat {
     messages: Message[];
 }
 
-export default async function firebaseAddChatToCompany(companyId: string | null, chat: Chat) {
-    let result = null;
+export default function addChatToCompany(companyId: string, chat: Chat) {
+    const company = firebaseGetCompanyById(companyId);
 
-    try {
-        const response = await firebaseGetCompanyById(companyId);
+    const companyChats = company?.val().chats;
 
-        const companyChats = response?.val().chats;
-
-        result = update(ref(database, "companies/" + companyId), {
-            chats: [...companyChats, chat]
-        });
-    } catch (err:any) {
-        console.error("Error during addChat request:", err);
-    }
-
-    return result;
+    update(ref(database, "companies/" + companyId), {
+        chats: [...companyChats, chat]
+    })
+        .then(() => {
+            handleFirebaseSuccess("Successful chat addition");
+        })
+        .catch((err: Error) => {
+            handleFirebaseError("Error during chat addition: ", err);
+        })
 }

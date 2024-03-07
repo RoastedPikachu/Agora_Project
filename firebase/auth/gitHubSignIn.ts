@@ -11,7 +11,7 @@ export const signInWithGithubPopup = () => {
         .then(() => {
             handleFirebaseSuccess("Successful sign in with GitHub");
         })
-        .catch((error) => {
-            handleFirebaseError("Error during GitHub authentication: ", error);
+        .catch((err: Error) => {
+            handleFirebaseError("Error during GitHub authentication: ", err);
         })
 }

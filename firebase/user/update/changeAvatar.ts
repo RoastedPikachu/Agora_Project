@@ -4,16 +4,14 @@ import {database} from "../../config";
 
 import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
 
-export default async function changeUserAvatar(userId: string, avatarPath: string) {
-    try {
-        const response = await update(ref(database, "users/" + userId), {
-            userAvatar: avatarPath
+export default function changeUserAvatar(userId: string, avatarPath: string) {
+    update(ref(database, "users/" + userId), {
+        userAvatar: avatarPath
+    })
+        .then(() => {
+            handleFirebaseSuccess("Successful user avatar change");
+        })
+        .catch((err: Error) => {
+            handleFirebaseError("Error during user avatar change: ", err);
         });
-
-        handleFirebaseSuccess("Successful user avatar change");
-
-        return response;
-    } catch (error: any) {
-        handleFirebaseError("Error during user avatar change: ", error);
-    }
 }

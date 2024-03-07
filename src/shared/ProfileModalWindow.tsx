@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 
 import {useRouter} from "next/navigation";
 
-import firebase from "firebase/compat";
+import firebase from "firebase/compat/app";
 
 import {auth} from "../../firebase/config";
 
