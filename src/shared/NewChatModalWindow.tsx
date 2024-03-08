@@ -7,7 +7,7 @@ import makeFirebaseRequest from "../../firebase/endpoints";
 
 import chatsStore from "@/app/store/chatsStore";
 
-import {getCompanyId} from "@/lib/generalFunctions";
+import {getCompanyId} from "@/utils/generalFunctions";
 
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 

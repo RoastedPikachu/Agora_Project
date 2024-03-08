@@ -2,7 +2,7 @@ import {signInWithEmailAndPassword} from "@firebase/auth";
 
 import {auth} from "../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function signIn(email: string, password: string) {
     signInWithEmailAndPassword(auth, email, password)

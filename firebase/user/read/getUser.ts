@@ -2,7 +2,7 @@ import {ref, get} from "firebase/database";
 
 import {database} from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function getUser(userId: string) {
     get(ref(database, "users/" + userId))

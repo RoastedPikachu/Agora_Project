@@ -5,7 +5,7 @@ import makeFirebaseRequest from "../../firebase/endpoints";
 
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
-import {getCompanyId} from "@/lib/generalFunctions";
+import {getCompanyId} from "@/utils/generalFunctions";
 
 import ContainedButton from "@/shared/ContainedButton";
 

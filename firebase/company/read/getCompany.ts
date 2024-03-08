@@ -5,7 +5,7 @@ import DataSnapshot = firebase.database.DataSnapshot;
 
 import {database} from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function getCompany(companyId: string): DataSnapshot | void {
     get(ref(database, "companies/" + companyId))

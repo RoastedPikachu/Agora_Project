@@ -2,7 +2,7 @@ import {action, makeAutoObservable} from "mobx";
 
 import firebaseGetChatsFromCompany from "../../../firebase/chat/read/getChats";
 
-import {getCompanyId} from "@/lib/generalFunctions";
+import {getCompanyId} from "@/utils/generalFunctions";
 
 interface Message {
     id: number;

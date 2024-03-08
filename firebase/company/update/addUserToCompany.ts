@@ -4,12 +4,12 @@ import {database} from "../../config";
 
 import firebaseGetCompanyById from "../read/getCompany";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function addUserToCompany(companyId: string, userEmail: string) {
     const company = firebaseGetCompanyById(companyId);
 
-    update(ref(database, "companies/" + companyId), {
+    return update(ref(database, "companies/" + companyId), {
         users: [...company?.val().users, userEmail]
     })
         .then(() => {

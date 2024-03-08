@@ -2,7 +2,7 @@ import {ref, update} from "firebase/database";
 
 import {database} from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function setCompanyInviteCode(companyId: string, inviteCode: string) {
         update(ref(database, "companies/" + companyId), {

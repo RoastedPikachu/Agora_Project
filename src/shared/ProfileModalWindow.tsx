@@ -9,7 +9,7 @@ import {auth} from "../../firebase/config";
 
 import makeFirebaseRequest from "../../firebase/endpoints";
 
-import {handleFirebaseSuccess, handleFirebaseError, handleImageLoad} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError, handleImageLoad} from "@/utils/generalFunctions";
 
 import authStore from "@/app/store/authStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";

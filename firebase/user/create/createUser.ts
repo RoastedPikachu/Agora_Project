@@ -2,10 +2,10 @@ import {ref, set} from "firebase/database";
 
 import {database} from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 export default function createNewUser(userId: string, displayName: string, userEmail: string, isCompanyOwner: boolean) {
-    set(ref(database, "users/" + userId), {
+    return set(ref(database, "users/" + userId), {
         userId: userId,
         displayName: displayName,
         userEmail: userEmail,

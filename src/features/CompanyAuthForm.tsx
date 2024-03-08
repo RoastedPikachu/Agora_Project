@@ -1,145 +1,148 @@
 "use client";
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
-import {useRouter} from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import TextField from "@mui/material/TextField";
 
-import firebase from "firebase/compat/app";
-
-import {auth} from "../../firebase/config";
-
 import makeFirebaseRequest from "../../firebase/endpoints";
 
-import {
-    getCompanyIdFromInviteCode,
-    handleFirebaseSuccess,
-    handleFirebaseError,
-    handleImageLoad
-} from "@/lib/generalFunctions";
+import { handleImageLoad } from "@/utils/generalFunctions";
 
 import authStore from "@/app/store/authStore";
 
 import ContainedButton from "@/shared/ContainedButton";
 
-import DataSnapshot = firebase.database.DataSnapshot;
-
 interface CompanyAuthFormProps {
-    isCreateCompany: boolean;
-    authHeader: string;
-    authDescription: string;
-    textFieldLabel: string;
+  isCreateCompany: boolean;
+  authHeader: string;
+  authDescription: string;
+  textFieldLabel: string;
 }
 
-const CompanyAuthForm:React.FC<CompanyAuthFormProps> = ({
-    isCreateCompany,
-    authHeader,
-    authDescription,
-    textFieldLabel
+const CompanyAuthForm: React.FC<CompanyAuthFormProps> = ({
+  isCreateCompany,
+  authHeader,
+  authDescription,
+  textFieldLabel,
 }) => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [companyName, setCompanyName] = useState("");
-    const [inviteCode, setInviteCode] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
 
-    const [companyAvatar, setCompanyAvatar] = useState("");
+  const [companyAvatar, setCompanyAvatar] = useState("");
 
-    const completeSignUp = async () => {
-        const user = auth.currentUser!;
-        const userName = authStore.name;
-
-        if(inviteCode) {
-            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password});
-
-            const company = await makeFirebaseRequest("company/get", {companyId: getCompanyIdFromInviteCode(inviteCode)}) as unknown as DataSnapshot;
-
-            Promise.all([
-                makeFirebaseRequest("user/update/name", {userId: user.uid, displayName: authStore.name}),
-                makeFirebaseRequest("company/update/user", {companyId: company.val().companyId, userEmail: user.email}),
-                makeFirebaseRequest("user/create", {userId: user.uid, displayName: authStore.name, email: user.email, isCompanyOwner: true})
-            ])
-                .then(() => {
-                    setInterval(() => {
-                        if (auth.currentUser) {
-                            makeFirebaseRequest("auth/checkSession", {});
-                        }
-                    }, 3600000);
-                });
-        }
-
-        if(companyName) {
-            makeFirebaseRequest("auth/signUp", {email: authStore.email, password: authStore.password});
-
-            Promise.all([
-                makeFirebaseRequest("user/create", {userId: user.uid, displayName: userName, email: user.email!, isCompanyOwner: true}),
-                makeFirebaseRequest("company/create", {companyId: crypto.randomUUID(), name: companyName, companyAvatar: companyAvatar, initialUserEmail: user.email!})
-            ])
-                .then(() => {
-                    authStore.signUp();
-
-                    setInterval(() => {
-                        if (auth.currentUser) {
-                            makeFirebaseRequest("auth/checkSession", {});
-                        }
-                    }, 3600000);
-                });
-        }
-
-        authStore.clearCredentials();
-
-        router.push("/messanger");
+  const completeSignUp = () => {
+    if (inviteCode) {
+      makeFirebaseRequest("auth/signUp/inviteCode", {
+        email: authStore.email,
+        password: authStore.password,
+        inviteCode: inviteCode,
+      });
+    } else {
+      makeFirebaseRequest("auth/signUp/company", {
+        email: authStore.email,
+        password: authStore.password,
+        companyName: companyName,
+        companyAvatar: companyAvatar,
+      });
     }
 
-    useEffect(() => {
-       if(authStore.inviteCode) {
-          setInviteCode(authStore.inviteCode);
-       }
-    }, []);
+    authStore.clearCredentials();
 
-    return (
-        <form className="grid justify-items-center grid-rows-[4] gap-y-[25px] w-[45%] max-w-[750px] h-auto">
-            {isCreateCompany ?
-                <div className="relative flex items-center row-span-3 w-[calc(70%+40px)] h-auto">
-                    <div className="relative flex w-[260px]">
-                        <div className="relative px-[20px] w-full h-auto">
-                            {companyAvatar.length ?
-                                <>
-                                    <button onClick={() => setCompanyAvatar("")} className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer z-30">
-                                        <img src="/static/icons/XMarkIcon.svg" alt="Button: remove avatar" className="w-[35px] h-[35px]"/>
-                                    </button>
+    router.push("/messanger");
+  };
 
-                                    <div className="relative mx-[10px] w-[200px] h-[200px] object-cover rounded-[10px]">
-                                        <img src={companyAvatar} alt="" className="w-full h-full rounded-[10px]"/>
-                                    </div>
-                                </>
-                                :
-                                <label htmlFor="CompanyAvatar" className="flex justify-center items-center mx-[10px] pb-[20px] w-[200px] h-[200px] border-4 border-dashed border-[#2076d2] rounded-[10px] text-[#2076d2] text-[8rem] cursor-pointer">+</label>
-                            }
+  useEffect(() => {
+    if (authStore.inviteCode) {
+      setInviteCode(authStore.inviteCode);
+    }
+  }, []);
 
-                            <p className="mt-[15px] text-[#2076d2] text-[1rem] text-center font-['Kamerik']">{authDescription}</p>
-                        </div>
-                    </div>
-
-                    <h2 className="mt-[-40px] ml-[10px] text-[#2076d2] text-[2.5rem] font-['Kamerik']">{authHeader}</h2>
-
-                    <input type="file" onChange={(event) => handleImageLoad(event, setCompanyAvatar)} id="CompanyAvatar" className="hidden"/>
-                </div>
-                :
+  return (
+    <form className="grid justify-items-center grid-rows-[4] gap-y-[25px] w-[45%] max-w-[750px] h-auto">
+      {isCreateCompany ? (
+        <div className="relative flex items-center row-span-3 w-[calc(70%+40px)] h-auto">
+          <div className="relative flex w-[260px]">
+            <div className="relative px-[20px] w-full h-auto">
+              {companyAvatar.length ? (
                 <>
-                    <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">{authHeader}</h2>
+                  <button
+                    onClick={() => setCompanyAvatar("")}
+                    className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer z-30"
+                  >
+                    <img
+                      src="/static/icons/XMarkIcon.svg"
+                      alt="Button: remove avatar"
+                      className="w-[35px] h-[35px]"
+                    />
+                  </button>
 
-                    <p className="mt-[-10px] w-[70%] text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">{authDescription}</p>
+                  <div className="relative mx-[10px] w-[200px] h-[200px] object-cover rounded-[10px]">
+                    <img
+                      src={companyAvatar}
+                      alt=""
+                      className="w-full h-full rounded-[10px]"
+                    />
+                  </div>
                 </>
-            }
+              ) : (
+                <label
+                  htmlFor="CompanyAvatar"
+                  className="flex justify-center items-center mx-[10px] pb-[20px] w-[200px] h-[200px] border-4 border-dashed border-[#2076d2] rounded-[10px] text-[#2076d2] text-[8rem] cursor-pointer"
+                >
+                  +
+                </label>
+              )}
 
-            <TextField type="text" label={textFieldLabel} onChange={(event) => isCreateCompany ? setCompanyName(event.target.value) : setInviteCode(event.target.value)} className="authInputMUIField"/>
+              <p className="mt-[15px] text-[#2076d2] text-[1rem] text-center font-['Kamerik']">
+                {authDescription}
+              </p>
+            </div>
+          </div>
 
-            <ContainedButton
-                styles={"mt-[10px] mx-[15%] w-[70%] h-[50px] text-[#ffffff]"}
-                text={"Complete sign up"}
-                handleFunction={completeSignUp}/>
-        </form>
-    );
+          <h2 className="mt-[-40px] ml-[10px] text-[#2076d2] text-[2.5rem] font-['Kamerik']">
+            {authHeader}
+          </h2>
+
+          <input
+            type="file"
+            onChange={(event) => handleImageLoad(event, setCompanyAvatar)}
+            id="CompanyAvatar"
+            className="hidden"
+          />
+        </div>
+      ) : (
+        <>
+          <h2 className="text-[#2076d2] text-[2.375rem] mmedium:text-[2.25rem] msmall:text-[2.125rem] text-center font-bold">
+            {authHeader}
+          </h2>
+
+          <p className="mt-[-10px] w-[70%] text-[#2076d2] text-[1.375rem] mmedium:text-[1.125rem] msmall:text-[1rem] text-center font-medium">
+            {authDescription}
+          </p>
+        </>
+      )}
+
+      <TextField
+        type="text"
+        label={textFieldLabel}
+        onChange={(event) =>
+          isCreateCompany
+            ? setCompanyName(event.target.value)
+            : setInviteCode(event.target.value)
+        }
+        className="authInputMUIField"
+      />
+
+      <ContainedButton
+        styles={"mt-[10px] mx-[15%] w-[70%] h-[50px] text-[#ffffff]"}
+        text={"Complete sign up"}
+        handleFunction={completeSignUp}
+      />
+    </form>
+  );
 };
 
 export default CompanyAuthForm;

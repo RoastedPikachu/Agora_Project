@@ -2,12 +2,10 @@ import {ref, set} from "firebase/database";
 
 import {database} from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError, setCookie} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError, setCookie} from "@/utils/generalFunctions";
 
 export default function createNewCompany(companyId:string, name: string, avatarPath: string, initialUserEmail: string) {
-    console.log("hmm");
-
-    set(ref(database, "companies/" + companyId), {
+    return set(ref(database, "companies/" + companyId), {
         companyId: companyId,
         inviteCode: null,
         companyName: name,

@@ -2,7 +2,7 @@ import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 
 import { auth } from '../config';
 
-import {handleFirebaseError, handleFirebaseSuccess} from "@/lib/generalFunctions";
+import {handleFirebaseError, handleFirebaseSuccess} from "@/utils/generalFunctions";
 
 const provider = new GithubAuthProvider();
 

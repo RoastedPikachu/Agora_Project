@@ -1,8 +1,10 @@
 import signIn from "./auth/signIn";
-import signUp from "./auth/signUp";
 import {signInWithGithubPopup} from "./auth/gitHubSignIn";
 import {signInWithGooglePopup} from "./auth/googleSignIn";
+import signUpWithInviteCode from "./auth/signUpWithInviteCode";
+import signUpWithNewCompany from "./auth/signUpWithNewCompany";
 import checkSessionExpiration from "./auth/checkSessionExpiration";
+
 
 import getUser from "./user/read/getUser";
 import createNewUser from "./user/create/createUser";
@@ -20,11 +22,14 @@ import getChatsFromCompany from "./chat/read/getChats";
 import removeChatFromCompany from "./chat/delete/deleteChat";
 import addMessageToChat from "./chat/update/addMessageToChat";
 
-import {Chat, Message} from "@/lib/generalInterfaces";
+import {Chat, Message} from "@/utils/generalInterfaces";
 
 interface FirebaseAuthRequestBody {
     email: string;
     password: string;
+    inviteCode?: string;
+    companyName?: string;
+    companyAvatar?: string;
 }
 
 interface FirebaseUserRequestBody {
@@ -74,13 +79,18 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             checkSessionExpiration();
             break;
         case "auth/signIn":
-            if(isFirebaseAuthBody(body)) {
+            if(isFirebaseAuthBody(body) ) {
                 signIn(body.email, body.password);
             }
             break;
-        case "auth/signUp":
-            if(isFirebaseAuthBody(body)) {
-                signUp(body.email, body.password);
+        case "auth/signUp/inviteCode":
+            if(isFirebaseAuthBody(body) && "inviteCode" in body) {
+                signUpWithInviteCode(body.email, body.password, body.inviteCode);
+            }
+            break;
+        case "auth/signUp/company":
+            if(isFirebaseAuthBody(body) && "companyName" in body && "companyAvatar" in body) {
+                signUpWithNewCompany(body.email, body.password, body.companyName, body.companyAvatar);
             }
             break;
         case "auth/gitHubSignIn":
@@ -91,7 +101,7 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "user/create":
             if(isFirebaseUserBody(body) && "displayName" in body && "email" in body && "isCompanyOwner" in body) {
-                createNewUser(body.userId, body.displayName!, body.email!, body.isCompanyOwner!);
+                return createNewUser(body.userId, body.displayName, body.email, body.isCompanyOwner);
             }
             break;
         case "user/get":
@@ -115,8 +125,8 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             }
             break;
         case "company/create":
-            if(isFirebaseCompanyBody(body) && "name" in body && "avatar" in body && "initialUserEmail" in body) {
-                createNewCompany(body.companyId, body.name!, body.avatarPath!, body.initialUserEmail!);
+            if(isFirebaseCompanyBody(body) && "name" in body && "avatarPath" in body && "initialUserEmail" in body) {
+                return createNewCompany(body.companyId, body.name, body.avatarPath, body.initialUserEmail);
             }
             break;
         case "company/get":
@@ -131,7 +141,7 @@ export default function makeFirebaseRequest(targetEndpoint: string, body: Reques
             break;
         case "company/update/user":
             if(isFirebaseCompanyBody(body) && "userEmail" in body) {
-                addUserToCompany(body.companyId, body.userEmail!);
+                return addUserToCompany(body.companyId, body.userEmail!);
             }
             break;
         case "chats/get":

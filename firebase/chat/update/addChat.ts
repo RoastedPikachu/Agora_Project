@@ -4,7 +4,7 @@ import {database} from "../../config";
 
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/lib/generalFunctions";
+import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
 
 interface Message {
     id: number;
