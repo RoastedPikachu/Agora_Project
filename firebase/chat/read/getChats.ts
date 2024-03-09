@@ -1,10 +1,12 @@
-import firebaseGetCompanyById from "../../company/read/getCompany";
+import makeFirebaseRequest from "../../endpoints";
 
-export default function getChatsFromCompany(companyId: string) {
-    // TODO: Fix first chats render
-    const company = firebaseGetCompanyById(companyId);
+// Здесь нет проверок в виду того, что у каждой компании есть как минимум 2 чата => ошибка будет только если мы не получим компанию
 
-    // Здесь нет проверок в виду того, что у каждой компании есть как минимум 2 чата => ошибка будет только если мы не получим компанию
+export default async function getChatsFromCompany(companyId: string) {
+  // TODO: Fix first chats render
+  const company = await makeFirebaseRequest("company/get", {
+    companyId: companyId,
+  });
 
-    return company?.val().chats;
+  return company?.val().chats;
 }

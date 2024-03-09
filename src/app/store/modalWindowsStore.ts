@@ -1,20 +1,20 @@
-import {action, makeAutoObservable} from "mobx";
+import { action, makeAutoObservable } from "mobx";
 
 class ModalWindowsStore {
-    isInviteCodeModalOpened = false;
-    isNewChatModalOpened = false;
+  isInviteCodeModalOpened = false;
+  isChatManagerModalOpened = false;
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    @action changeInviteCodeModalOpened()  {
-        this.isInviteCodeModalOpened = !this.isInviteCodeModalOpened;
-    }
+  @action changeInviteCodeModalOpened() {
+    this.isInviteCodeModalOpened = !this.isInviteCodeModalOpened;
+  }
 
-    @action changeNewChatModalOpened() {
-        this.isNewChatModalOpened = !this.isNewChatModalOpened;
-    }
+  @action changeChatManagerModalOpened() {
+    this.isChatManagerModalOpened = !this.isChatManagerModalOpened;
+  }
 }
 
 export default new ModalWindowsStore();

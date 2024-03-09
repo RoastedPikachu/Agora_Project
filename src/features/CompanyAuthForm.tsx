@@ -73,7 +73,7 @@ const CompanyAuthForm: React.FC<CompanyAuthFormProps> = ({
                     className="absolute top-[-15px] right-[5px] w-[45px] h-[45px] cursor-pointer z-30"
                   >
                     <img
-                      src="/static/icons/XMarkIcon.svg"
+                      src="/static/icons/XMarkRoundedIcon.svg"
                       alt="Button: remove avatar"
                       className="w-[35px] h-[35px]"
                     />

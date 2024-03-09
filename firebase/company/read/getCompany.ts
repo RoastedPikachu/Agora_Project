@@ -1,20 +1,23 @@
 import firebase from "firebase/compat/app";
-import {ref, get} from "firebase/database";
+import { ref, get } from "firebase/database";
 
 import DataSnapshot = firebase.database.DataSnapshot;
 
-import {database} from "../../config";
+import { database } from "../../config";
 
-import {handleFirebaseSuccess, handleFirebaseError} from "@/utils/generalFunctions";
+import {
+  handleFirebaseSuccess,
+  handleFirebaseError,
+} from "@/utils/generalFunctions";
 
-export default function getCompany(companyId: string): DataSnapshot | void {
-    get(ref(database, "companies/" + companyId))
-        .then((res) => {
-            handleFirebaseSuccess("Successful company receiving");
+export default async function getCompany(companyId: string) {
+  try {
+    const company = await get(ref(database, "companies/" + companyId));
 
-            return res;
-        })
-        .catch((err: Error) => {
-            handleFirebaseError("Error during company receiving: ", err);
-        });
+    handleFirebaseSuccess("Successful company receiving");
+
+    return company;
+  } catch (err) {
+    handleFirebaseError("Error during company receiving: ", err);
+  }
 }
