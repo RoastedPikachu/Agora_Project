@@ -8,6 +8,7 @@ import {
   handleFirebaseSuccess,
   handleFirebaseError,
 } from "@/utils/generalFunctions";
+import chatsStore from "@/app/store/chatsStore";
 
 interface Message {
   id: number;
@@ -33,6 +34,8 @@ export default async function addChatToCompany(companyId: string, chat: Chat) {
   })
     .then(() => {
       handleFirebaseSuccess("Successful chat addition");
+
+      chatsStore.getChats();
     })
     .catch((err: Error) => {
       handleFirebaseError("Error during chat addition: ", err);

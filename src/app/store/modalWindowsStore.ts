@@ -1,4 +1,5 @@
 import { action, makeAutoObservable } from "mobx";
+import chatsStore from "@/app/store/chatsStore";
 
 class ModalWindowsStore {
   isInviteCodeModalOpened = false;
@@ -14,6 +15,8 @@ class ModalWindowsStore {
 
   @action changeChatManagerModalOpened() {
     this.isChatManagerModalOpened = !this.isChatManagerModalOpened;
+
+    chatsStore.changeIsNewChatCreation(false);
   }
 }
 

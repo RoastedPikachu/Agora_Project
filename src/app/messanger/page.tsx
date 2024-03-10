@@ -10,6 +10,7 @@ import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
 
 import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
 import ChatManager from "@/shared/ChatManager";
+import chatsStore from "@/app/store/chatsStore";
 
 const Page = observer(() => {
   return (
@@ -20,7 +21,7 @@ const Page = observer(() => {
             <InviteCodeModalWindow />
           )}
 
-          {modalWindowsStore.isChatManagerModalOpened && <ChatManager />}
+          <ChatManager />
 
           <TheMessangerPageHeader />
 
@@ -31,7 +32,13 @@ const Page = observer(() => {
               <div className="relative w-full h-[calc(100vh-160px)]"></div>
 
               <div className="relative flex items-center w-full h-[50px]">
-                <div className="w-[50px] h-[50px] bg-[#747474] rounded-[10px]"></div>
+                <div className="w-[50px] h-[50px] rounded-[10px]">
+                  <img
+                    src="/static/messangerPage/icons/DefaultAvatarIcon.svg"
+                    alt=""
+                    className="w-full h-full"
+                  />
+                </div>
 
                 <div className="flex items-center ml-[20px] px-[20px] w-full h-[50px] bg-[#e5e8eb] rounded-[10px]">
                   <button>
@@ -44,7 +51,9 @@ const Page = observer(() => {
 
                   <input
                     type="text"
-                    placeholder="Message #channel"
+                    placeholder={`Message #${
+                      chatsStore.currentChat.name || "Important"
+                    }`}
                     className="ml-[20px] w-full h-[50px] bg-[#e5e8eb] text-[#0d141c] placeholder:text-[#4f7396] text-[1.25rem] font-medium outline-0"
                   />
 

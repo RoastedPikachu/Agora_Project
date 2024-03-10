@@ -4,6 +4,7 @@ import firebaseGetChatsFromCompany from "../../../firebase/chat/read/getChats";
 
 import { getCompanyId } from "@/utils/generalFunctions";
 import makeFirebaseRequest from "../../../firebase/endpoints";
+import { useState } from "react";
 
 interface Message {
   id: number;
@@ -21,7 +22,11 @@ interface Chat {
 
 class ModalWindowsStore {
   isLoading = false;
+  isNewChatCreation = false;
+
   chats = [] as Chat[];
+
+  currentChat = {} as Chat;
 
   constructor() {
     makeAutoObservable(this);
@@ -34,6 +39,16 @@ class ModalWindowsStore {
         ? { ...chat, isOpened: true }
         : { ...chat, isOpened: false },
     );
+
+    this.setCurrentChat(targetId);
+  }
+
+  setCurrentChat(targetId: number) {
+    this.currentChat = this.chats.find((chat) => chat.id === targetId)!;
+  }
+
+  changeIsNewChatCreation(value: boolean) {
+    this.isNewChatCreation = value;
   }
 
   @action async getChats() {
