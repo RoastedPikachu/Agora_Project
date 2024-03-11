@@ -4,25 +4,13 @@ import { database } from "../../config";
 
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
+import chatsStore from "@/app/store/chatsStore";
+
 import {
   handleFirebaseSuccess,
   handleFirebaseError,
 } from "@/utils/generalFunctions";
-import chatsStore from "@/app/store/chatsStore";
-
-interface Message {
-  id: number;
-  author: string;
-  sendDate: string;
-  text: string;
-}
-
-interface Chat {
-  id: number;
-  name: string;
-  isOpened: boolean;
-  messages: Message[];
-}
+import { Chat } from "@/utils/generalInterfaces";
 
 export default async function addChatToCompany(companyId: string, chat: Chat) {
   const company = await firebaseGetCompanyById(companyId);

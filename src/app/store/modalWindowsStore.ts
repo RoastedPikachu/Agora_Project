@@ -1,4 +1,5 @@
 import { action, makeAutoObservable } from "mobx";
+
 import chatsStore from "@/app/store/chatsStore";
 
 class ModalWindowsStore {

@@ -3,14 +3,18 @@ import React from "react";
 
 import { Observer, observer } from "mobx-react-lite";
 
+import chatsStore from "@/app/store/chatsStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
+
+import makeFirebaseRequest from "../../../firebase/endpoints";
+
+import { getCompanyId } from "@/utils/generalFunctions";
 
 import MessangerSidebar from "@/widgets/MessangerSidebar";
 import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
 
 import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
 import ChatManager from "@/shared/ChatManager";
-import chatsStore from "@/app/store/chatsStore";
 
 const Page = observer(() => {
   return (
@@ -57,7 +61,7 @@ const Page = observer(() => {
                     className="ml-[20px] w-full h-[50px] bg-[#e5e8eb] text-[#0d141c] placeholder:text-[#4f7396] text-[1.25rem] font-medium outline-0"
                   />
 
-                  <button>
+                  <button onClick={}>
                     <img
                       src="/static/messangerPage/icons/SendMessageIcon.svg"
                       alt=""
