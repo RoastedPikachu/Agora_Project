@@ -38,13 +38,14 @@ const InviteCodeModalWindow = () => {
   }, []);
 
   return (
-    <div className="absolute mt-[85px] mx-[32.5%] px-[20px] py-[15px] w-[35%] h-auto bg-[#ffffff] border-2 border-[#2076d2] rounded-[10px] z-30">
+    <div className={`absolute ${modalWindowsStore.isInviteCodeModalOpened ? "mt-[85px]"
+        : "mt-[-100vh]"} mx-[32.5%] px-[20px] py-[15px] w-[35%] h-auto bg-[#ffffff] border-2 border-[#2076d2] rounded-[10px] z-30`}>
       <button
         onClick={() => modalWindowsStore.changeInviteCodeModalOpened()}
         className="absolute top-[-20px] right-[-20px] w-[45px] h-[45px] cursor-pointer z-30"
       >
         <img
-          src="/icons/XMarkRoundedIcon.svg"
+          src="/static/icons/XMarkRoundedIcon.svg"
           alt="Button: remove avatar"
           className="w-[35px] h-[35px]"
         />

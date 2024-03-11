@@ -10,12 +10,12 @@ interface MessageProps {
   text: string;
 }
 
-const Message: React.FC<MessageProps> = ({ author, sendDate, text }) => {
+const Message: React.FC<MessageProps> = ({ authorAvatar, author, sendDate, text }) => {
   return (
     <div>
       <div>
         <img
-          src="/static/messangerPage/icons/DefaultAvatarIcon.svg"
+          src={authorAvatar || "/static/messangerPage/icons/DefaultAvatarIcon.svg"}
           alt=""
           className=""
         />

@@ -1,10 +1,8 @@
 import { action, makeAutoObservable } from "mobx";
 
-import firebaseGetChatsFromCompany from "../../../firebase/chat/read/getChats";
+import makeFirebaseRequest from "../../../firebase/endpoints";
 
 import { getCompanyId } from "@/utils/generalFunctions";
-import makeFirebaseRequest from "../../../firebase/endpoints";
-import { useState } from "react";
 
 interface Message {
   id: number;
@@ -30,7 +28,6 @@ class ModalWindowsStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.getChats();
   }
 
   changeActiveChat(targetId: number) {
@@ -55,9 +52,11 @@ class ModalWindowsStore {
     this.isLoading = true;
 
     try {
-      this.chats = await makeFirebaseRequest("chats/get", {
+      const response = await makeFirebaseRequest("chats/get", {
         companyId: getCompanyId(),
       });
+      
+      this.chats = response.val().chats;
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {

@@ -16,13 +16,27 @@ export default function createNewCompany(companyId:string, name: string, avatarP
                 id: 1,
                 name: "Important",
                 isOpened: true,
-                messages: []
+                messages: [
+                    {
+                        id: 1,
+                        author: "Agora",
+                        sendTime: "",
+                        text: "Welcome to the Important chat! Here is will store all important messages which posted by your executives."
+                    }
+                ]
             },
             {
                 id: 2,
                 name: "Favourites",
                 isOpened: false,
-                messages: []
+                messages: [
+                    {
+                        id: 1,
+                        author: "Agora",
+                        sendTime: "",
+                        text: "Welcome to the Favourites chat! Here is you can store all messages which you think is useful or you don't want to forget it."
+                    }
+                ]
             }
         ]
     })

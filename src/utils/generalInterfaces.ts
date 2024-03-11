@@ -6,7 +6,7 @@ export interface Author {
 export interface Message {
   id: number;
   author: Author;
-  sendDate: string;
+  sendTime: string;
   text: string;
 }
 

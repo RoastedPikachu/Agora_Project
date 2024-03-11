@@ -7,9 +7,9 @@ import TextField from "@mui/material/TextField";
 
 import makeFirebaseRequest from "../../firebase/endpoints";
 
-import { handleImageLoad } from "@/utils/generalFunctions";
-
 import authStore from "@/app/store/authStore";
+
+import { handleImageLoad } from "@/utils/generalFunctions";
 
 import ContainedButton from "@/shared/ContainedButton";
 

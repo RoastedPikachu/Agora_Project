@@ -9,11 +9,11 @@ import {
 
 export default async function getUser(userId: string) {
   try {
-    const user = await get(ref(database, "users/" + userId));
+    const response = await get(ref(database, "users/" + userId));
 
     handleFirebaseSuccess("Successful user receiving");
 
-    return user;
+    return response;
   } catch (err) {
     handleFirebaseError("Error during user receiving: ", err);
   }

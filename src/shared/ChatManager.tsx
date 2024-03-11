@@ -8,10 +8,9 @@ import TextField from "@mui/material/TextField";
 import makeFirebaseRequest from "../../firebase/endpoints";
 
 import chatsStore from "@/app/store/chatsStore";
+import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import { getCompanyId } from "@/utils/generalFunctions";
-
-import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import ContainedButton from "@/shared/ContainedButton";
 
@@ -81,7 +80,7 @@ const ChatManager = observer(() => {
 
                   <button onClick={() => deleteChat(chat.id)}>
                     <img
-                      src="/static/icons/XmarkIcon.svg"
+                      src="/static/icons/XMarkIcon.svg"
                       alt=""
                       className="w-[20px] h-[20px]"
                     />

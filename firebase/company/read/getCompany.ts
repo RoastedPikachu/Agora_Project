@@ -1,7 +1,4 @@
-import firebase from "firebase/compat/app";
 import { ref, get } from "firebase/database";
-
-import DataSnapshot = firebase.database.DataSnapshot;
 
 import { database } from "../../config";
 

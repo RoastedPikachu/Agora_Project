@@ -21,7 +21,7 @@ import getChatsFromCompany from "./chat/read/getChats";
 import removeChatFromCompany from "./chat/delete/deleteChat";
 import addMessageToChat from "./chat/update/addMessageToChat";
 
-import { Chat, Message } from "@/utils/generalInterfaces";
+import { Chat } from "@/utils/generalInterfaces";
 
 interface FirebaseAuthRequestBody {
   email: string;
@@ -53,7 +53,8 @@ interface FirebaseChatRequestBody {
   companyId: string;
   chatId?: number;
   chat?: Chat;
-  message?: Message;
+  sendTime?: string;
+  messageText?: string;
 }
 
 type RequestBodyInterface =
@@ -63,25 +64,25 @@ type RequestBodyInterface =
   | FirebaseChatRequestBody
   | {};
 
-const isFirebaseAuthBody = (
+function isFirebaseAuthBody(
   body: RequestBodyInterface,
-): body is FirebaseAuthRequestBody => {
+): body is FirebaseAuthRequestBody {
   return "email" in body && "password" in body;
-};
+}
 
-const isFirebaseUserBody = (
+function isFirebaseUserBody(
   body: RequestBodyInterface,
-): body is FirebaseUserRequestBody => {
+): body is FirebaseUserRequestBody {
   return "userId" in body;
-};
+}
 
 // Эта функция также используется для чатов, потому что все действия в них и с ними привязаны к компании
 
-const isFirebaseCompanyBody = (
+function isFirebaseCompanyBody(
   body: RequestBodyInterface,
-): body is FirebaseCompanyRequestBody => {
+): body is FirebaseCompanyRequestBody {
   return "companyId" in body;
-};
+}
 
 export default function makeFirebaseRequest(
   targetEndpoint: string,
@@ -200,12 +201,13 @@ export default function makeFirebaseRequest(
       if (
         isFirebaseCompanyBody(body) &&
         "chatId" in body &&
-        "message" in body
+        "messageText" in body  && "sendTime" in body
       ) {
         addMessageToChat(
           body.companyId,
           body.chatId as number,
-          body.message as Message,
+          body.sendTime as string,
+          body.messageText as string,
         );
       }
       break;

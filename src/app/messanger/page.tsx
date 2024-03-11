@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 
 import { Observer, observer } from "mobx-react-lite";
 
@@ -8,7 +8,7 @@ import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 import makeFirebaseRequest from "../../../firebase/endpoints";
 
-import { getCompanyId } from "@/utils/generalFunctions";
+import {getCompanyId} from "@/utils/generalFunctions";
 
 import MessangerSidebar from "@/widgets/MessangerSidebar";
 import TheMessangerPageHeader from "@/widgets/TheMessangerPageHeader";
@@ -17,6 +17,26 @@ import InviteCodeModalWindow from "@/shared/InviteCodeModalWindow";
 import ChatManager from "@/shared/ChatManager";
 
 const Page = observer(() => {
+  const [messageText, setMessageText] = useState("");
+
+  function getSendTime(): string {
+    const date = new Date;
+
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+
+  const handleNewMessage = () => {
+     makeFirebaseRequest("chats/update/message", {
+       companyId: getCompanyId(),
+       chatId: chatsStore.currentChat.id,
+       sendTime: getSendTime(),
+       messageText: messageText
+     })
+  }
+
   return (
     <Observer>
       {() => (
@@ -56,12 +76,13 @@ const Page = observer(() => {
                   <input
                     type="text"
                     placeholder={`Message #${
-                      chatsStore.currentChat.name || "Important"
+                      chatsStore.currentChat.name || "There will be chat name"
                     }`}
+                    onChange={(event) => setMessageText(event.target.value)}
                     className="ml-[20px] w-full h-[50px] bg-[#e5e8eb] text-[#0d141c] placeholder:text-[#4f7396] text-[1.25rem] font-medium outline-0"
                   />
 
-                  <button onClick={}>
+                  <button onClick={handleNewMessage}>
                     <img
                       src="/static/messangerPage/icons/SendMessageIcon.svg"
                       alt=""

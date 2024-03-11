@@ -4,31 +4,42 @@ import { database } from "../../config";
 
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
+import userStore from "@/app/store/userStore";
+
 import {
   handleFirebaseSuccess,
   handleFirebaseError,
 } from "@/utils/generalFunctions";
-import { Chat, Message } from "@/utils/generalInterfaces";
+import { Chat } from "@/utils/generalInterfaces";
 
 export default async function addMessageToChat(
   companyId: string,
   targetChatId: number,
-  message: Message,
+  sendTime: string,
+  messageText: string,
 ) {
   const company = await firebaseGetCompanyById(companyId);
 
   const chat = company
     ?.val()
     .chats.find((chat: Chat) => chat.id === targetChatId);
-  chat.push(message);
+
+  const message = {
+    id: chat.messages[chat.messages.length - 1].id + 1,
+    author: userStore.userName,
+    sendTime: sendTime,
+    text: messageText
+  }
+
+  chat.messages.push(message);
 
   update(ref(database, "companies/" + companyId), {
-    chats: [...company?.val().chats, chat],
+    chats: [...company?.val().chats],
   })
     .then(() => {
-      handleFirebaseSuccess("Successful user addition");
+      handleFirebaseSuccess("Successful message addition");
     })
     .catch((err: Error) => {
-      handleFirebaseError("Error during user addition: ", err);
+      handleFirebaseError("Error during message addition: ", err);
     });
 }

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useEffect} from "react";
 
 import { Observer, observer } from "mobx-react-lite";
 
@@ -7,6 +7,10 @@ import chatsStore from "@/app/store/chatsStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
 const MessangerSidebar = observer(() => {
+  useEffect(() => {
+    chatsStore.getChats();
+  }, []);
+
   return (
     <Observer>
       {() => (

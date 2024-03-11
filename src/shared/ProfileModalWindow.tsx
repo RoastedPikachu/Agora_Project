@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import firebase from "firebase/compat/app";
-
 import { auth } from "../../firebase/config";
 
 import makeFirebaseRequest from "../../firebase/endpoints";
@@ -17,8 +15,7 @@ import {
 
 import authStore from "@/app/store/authStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
-
-import DataSnapshot = firebase.database.DataSnapshot;
+import userStore from "@/app/store/userStore";
 
 const ProfileModalWindow = () => {
   const router = useRouter();
@@ -46,9 +43,7 @@ const ProfileModalWindow = () => {
       isCurrent: false,
     },
   ]);
-
-  const [userName, setUserName] = useState("");
-
+  
   const changeUserAvatar = (imagePath: string) => {
     makeFirebaseRequest("user/update/avatar", {
       userId: auth.currentUser?.uid,
@@ -61,14 +56,6 @@ const ProfileModalWindow = () => {
       userId: auth.currentUser?.uid,
       statusCode: statusCode,
     });
-  };
-
-  const getUserName = async () => {
-    const result = (await makeFirebaseRequest("user/get", {
-      userId: auth.currentUser?.uid,
-    })) as unknown as DataSnapshot;
-
-    setUserName(result.val().displayName);
   };
 
   const signOut = () => {
@@ -87,7 +74,7 @@ const ProfileModalWindow = () => {
   };
 
   useEffect(() => {
-    getUserName();
+    userStore.getUserName();
   }, []);
 
   return (
@@ -101,7 +88,7 @@ const ProfileModalWindow = () => {
 
         <div className="grid items-center grid-rows-2 grid-cols-1 ml-[15px]">
           <h4 className="text-[#0d141c] text-[1.125rem] font-bold">
-            {userName}
+            {userStore.userName}
           </h4>
 
           <div className="flex items-center">

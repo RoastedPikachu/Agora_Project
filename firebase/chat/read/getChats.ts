@@ -4,9 +4,7 @@ import makeFirebaseRequest from "../../endpoints";
 
 export default async function getChatsFromCompany(companyId: string) {
   // TODO: Fix first chats render
-  const company = await makeFirebaseRequest("company/get", {
+  return await makeFirebaseRequest("company/get", {
     companyId: companyId,
   });
-
-  return company?.val().chats;
 }
