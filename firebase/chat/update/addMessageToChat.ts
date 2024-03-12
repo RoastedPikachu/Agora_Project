@@ -1,6 +1,6 @@
 import { ref, update } from "firebase/database";
 
-import { database } from "../../config";
+import { auth, database } from "../../config";
 
 import firebaseGetCompanyById from "../../company/read/getCompany";
 
@@ -26,10 +26,14 @@ export default async function addMessageToChat(
 
   const message = {
     id: chat.messages[chat.messages.length - 1].id + 1,
-    author: userStore.userName,
+    author: {
+      uid: auth.currentUser?.uid,
+      avatarPath: "/static/messengerPage/icons/DefaultAvatarIcon.svg",
+      name: userStore.userName,
+    },
     sendTime: sendTime,
-    text: messageText
-  }
+    text: messageText,
+  };
 
   chat.messages.push(message);
 

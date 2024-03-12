@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { auth } from "../../firebase/config";
+import { auth } from "../../../firebase/config";
 
-import makeFirebaseRequest from "../../firebase/endpoints";
+import makeFirebaseRequest from "../../../firebase/endpoints";
 
 import {
   handleFirebaseSuccess,
@@ -43,7 +43,7 @@ const ProfileModalWindow = () => {
       isCurrent: false,
     },
   ]);
-  
+
   const changeUserAvatar = (imagePath: string) => {
     makeFirebaseRequest("user/update/avatar", {
       userId: auth.currentUser?.uid,
@@ -81,9 +81,9 @@ const ProfileModalWindow = () => {
     <div className="absolute top-[51px] right-0 pt-[20px] pb-[5px] w-[300px] h-auto bg-[#ffffff] border-2 border-[#e5e8eb] rounded-[10px] z-30">
       <div className="relative flex items-center mx-[25px] w-[100%] h-[50px]">
         <img
-          src="/static/messangerPage/icons/DefaultAvatarIcon.svg"
+          src="/static/messengerPage/icons/DefaultAvatarIcon.svg"
           alt=""
-          className="row-span-2 w-[40px] h-[40px] bg-[#747474] rounded-[7.5px]"
+          className="row-span-2 w-[40px] h-[40px] rounded-[7.5px]"
         />
 
         <div className="grid items-center grid-rows-2 grid-cols-1 ml-[15px]">
@@ -93,9 +93,9 @@ const ProfileModalWindow = () => {
 
           <div className="flex items-center">
             <div
-              className={`w-[12.5px] h-[12.5px] rounded-[50%] ${statuses.find(
-                (status) => status.isCurrent,
-              )?.color}`}
+              className={`w-[12.5px] h-[12.5px] rounded-[50%] ${
+                statuses.find((status) => status.isCurrent)?.color
+              }`}
             ></div>
 
             <p className="ml-[10px] text-[#4f7396] text-[1rem] font-normal">

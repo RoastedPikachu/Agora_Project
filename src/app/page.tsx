@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import Advantage from "@/shared/Advantage";
+import Advantage from "../../entities/Advantage";
 
 import TheHomePageHeader from "@/widgets/TheHomePageHeader";
 import GreetingsBlock from "@/widgets/GreetingsBlock";

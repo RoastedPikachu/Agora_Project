@@ -3,20 +3,7 @@ import { action, makeAutoObservable } from "mobx";
 import makeFirebaseRequest from "../../../firebase/endpoints";
 
 import { getCompanyId } from "@/utils/generalFunctions";
-
-interface Message {
-  id: number;
-  author: string;
-  sendDate: string;
-  text: string;
-}
-
-interface Chat {
-  id: number;
-  name: string;
-  isOpened: boolean;
-  messages: Message[];
-}
+import { Chat } from "@/utils/generalInterfaces";
 
 class ModalWindowsStore {
   isLoading = false;

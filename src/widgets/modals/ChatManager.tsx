@@ -5,7 +5,7 @@ import { observer, Observer } from "mobx-react-lite";
 
 import TextField from "@mui/material/TextField";
 
-import makeFirebaseRequest from "../../firebase/endpoints";
+import makeFirebaseRequest from "../../../firebase/endpoints";
 
 import chatsStore from "@/app/store/chatsStore";
 import modalWindowsStore from "@/app/store/modalWindowsStore";
@@ -50,9 +50,9 @@ const ChatManager = observer(() => {
             modalWindowsStore.isChatManagerModalOpened
               ? "mt-[85px]"
               : "mt-[-100vh]"
-          } mx-[40%] px-[20px] py-[15px] w-[20%] h-auto bg-[#ffffff] border-2 border-[#2076d2] rounded-[10px] duration-700 ease-in-out z-30`}
+          } mx-[32.5%] px-[20px] py-[15px] w-[35%] max-w-[500px] h-auto bg-[#ffffff] border-2 border-[#2076d2] rounded-[10px] duration-700 ease-in-out z-30`}
         >
-          <button
+          <button       
             onClick={() => modalWindowsStore.changeChatManagerModalOpened()}
             className="absolute top-[-12.5px] right-[-12.5px] cursor-pointer z-30"
           >

@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 import { Observer, observer } from "mobx-react-lite";
 
@@ -29,7 +29,7 @@ const MessangerSidebar = observer(() => {
                 } flex items-center px-[20px] h-[50px]`}
               >
                 <img
-                  src="/static/messangerPage/icons/ChatIcon.svg"
+                  src="/static/messengerPage/icons/ChatIcon.svg"
                   alt=""
                   className="w-[25px] h-[25px]"
                 />
@@ -45,7 +45,7 @@ const MessangerSidebar = observer(() => {
               className="flex items-center px-[20px] h-[50px]"
             >
               <img
-                src="/static/messangerPage/icons/AddIcon.svg"
+                src="/static/messengerPage/icons/AddIcon.svg"
                 alt=""
                 className="w-[25px] h-[25px]"
               />

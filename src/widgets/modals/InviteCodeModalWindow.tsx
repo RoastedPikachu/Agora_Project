@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import makeFirebaseRequest from "../../firebase/endpoints";
+import makeFirebaseRequest from "../../../firebase/endpoints";
 
 import modalWindowsStore from "@/app/store/modalWindowsStore";
 
