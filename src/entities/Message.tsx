@@ -12,7 +12,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ id, author, sendTime, text }) => {
   return (
-    <div className="relative px-[20px] py-[15px] w-[60%] h-auto">
+    <div className="relative inline-block px-[20px] py-[15px] w-auto max-w-[55%] h-auto">
       {id !== 1 && (
         <div className="relative">
           <img
@@ -27,11 +27,11 @@ const Message: React.FC<MessageProps> = ({ id, author, sendTime, text }) => {
         </div>
       )}
 
-      <p className="w-[calc(100%-50px)] text-[#0d140c] text-[1.25rem] font-medium">
+      <p className="relative inline-block text-[#0d140c] text-[1.25rem] font-medium break-all">
         {text}
       </p>
 
-      <p className="absolute bottom-[5px] right-0 text-[#2076d2] text-[1.25rem] font-medium">
+      <p className="absolute inline-block top-0 right-[-50px] text-[#2076d2] text-[1.125rem] font-medium">
         {sendTime}
       </p>
     </div>

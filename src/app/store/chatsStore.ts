@@ -5,7 +5,7 @@ import makeFirebaseRequest from "../../../firebase/endpoints";
 import { getCompanyId } from "@/utils/generalFunctions";
 import { Chat } from "@/utils/generalInterfaces";
 
-class ModalWindowsStore {
+class ChatsStore {
   isLoading = false;
   isNewChatCreation = false;
 
@@ -42,8 +42,9 @@ class ModalWindowsStore {
       const response = await makeFirebaseRequest("chats/get", {
         companyId: getCompanyId(),
       });
-      
+
       this.chats = response.val().chats;
+      this.setCurrentChat(1);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -52,4 +53,4 @@ class ModalWindowsStore {
   }
 }
 
-export default new ModalWindowsStore();
+export default new ChatsStore();
